@@ -11,3 +11,9 @@ A project that replicates a simplified version of the Airbnb platform.
 ```sh
  npm run db-setup
 ```
+
+2. Make sure to install all NPM dependencies by running the following NPM script:
+
+```sh
+npm install
+```
