@@ -4,4 +4,6 @@ const { Pool } = nodePostgres;
 const dotEnv = require('dotenv');
 dotEnv.config();
 
-const db = new Pool();
+const pool = new Pool();
+
+module.exports = pool;
