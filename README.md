@@ -17,3 +17,9 @@ A project that replicates a simplified version of the Airbnb platform.
 ```sh
 npm install
 ```
+
+3. Make sure the .env file is located at the project root level and contains the correct database credentials:
+
+```sh
+PGDATABASE=airbnc
+```
