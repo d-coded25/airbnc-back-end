@@ -4,12 +4,15 @@ const queries = require('./queries');
 
 const { dropTablesQueries } = queries;
 const { dropPropertyTypes } = dropTablesQueries;
+const { dropUsers } = dropTablesQueries;
 
 const { createTablesQueries } = queries;
 const { createPropertyTypes } = createTablesQueries;
+const { createUsers } = createTablesQueries;
 
 const dropTables = async function () {
   try {
+    await db.query(dropUsers);
     await db.query(dropPropertyTypes);
     console.log('Resolved: Drop Tables!');
   } catch (err) {
@@ -20,6 +23,7 @@ const dropTables = async function () {
 const createTables = async function () {
   try {
     await db.query(createPropertyTypes);
+    await db.query(createUsers);
     console.log('Resolved: Create Tables!');
   } catch (err) {
     console.log('Rejected: Create Tables:', err.message);
