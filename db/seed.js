@@ -10,6 +10,7 @@ const { createPropertyTypes } = createTablesQueries;
 
 const dropTables = async function () {
   try {
+    await db.query(dropPropertyTypes);
     console.log('Resolved: Drop Tables!');
   } catch (err) {
     console.log('Rejected: Drop Tables:', err.message);
@@ -18,6 +19,7 @@ const dropTables = async function () {
 
 const createTables = async function () {
   try {
+    await db.query(createPropertyTypes);
     console.log('Resolved: Create Tables!');
   } catch (err) {
     console.log('Rejected: Create Tables:', err.message);
