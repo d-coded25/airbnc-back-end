@@ -1,18 +1,22 @@
 const db = require('./connection');
 
-const queries = require('./queries');
+const format = require('pg-format');
 
-const { dropTablesQueries } = queries;
-const { dropPropertyTypes } = dropTablesQueries;
-const { dropUsers } = dropTablesQueries;
-const { dropProperties } = dropTablesQueries;
-const { dropReviews } = dropTablesQueries;
+const { propertyTypesFormatter } = require('./utils');
 
-const { createTablesQueries } = queries;
-const { createPropertyTypes } = createTablesQueries;
-const { createUsers } = createTablesQueries;
-const { createProperties } = createTablesQueries;
-const { createReviews } = createTablesQueries;
+const {
+  dropTablesQueries,
+  createTablesQueries,
+  insertDataQueries,
+} = require('./queries');
+
+const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
+  dropTablesQueries;
+
+const { createPropertyTypes, createUsers, createProperties, createReviews } =
+  createTablesQueries;
+
+const { insertPropertyTypes } = insertDataQueries;
 
 const dropTables = async function () {
   try {
@@ -20,9 +24,9 @@ const dropTables = async function () {
     await db.query(dropProperties);
     await db.query(dropUsers);
     await db.query(dropPropertyTypes);
-    console.log('Resolved: Drop Tables!');
+    console.log('Resolved: Drop Tables');
   } catch (err) {
-    console.log('Rejected: Drop Tables:', err.message);
+    console.log('Rejected: Drop Tables!:', err.message);
   }
 };
 
@@ -32,19 +36,32 @@ const createTables = async function () {
     await db.query(createUsers);
     await db.query(createProperties);
     await db.query(createReviews);
-    console.log('Resolved: Create Tables!');
+    console.log('Resolved: Create Tables');
   } catch (err) {
-    console.log('Rejected: Create Tables:', err.message);
+    console.log('Rejected: Create Tables!:', err.message);
   }
 };
 
-const createTestDatabase = async function () {
+const insertData = async function (testData) {
+  try {
+    const { propertyTypesData } = testData;
+    const propertyTypes = propertyTypesFormatter(propertyTypesData);
+
+    await db.query(format(insertPropertyTypes, propertyTypes));
+    console.log('Resolved: Inserted Data Into Tables');
+  } catch (err) {
+    console.log('Rejected: Inserted Data Into Tables!:', err.message);
+  }
+};
+
+const createTestDatabase = async function (testData) {
   try {
     await dropTables();
     await createTables();
-    console.log('Resolved: Database Created!');
+    await insertData(testData);
+    console.log('Resolved: Database Created');
   } catch (err) {
-    console.log('Rejected: Database Not Created:', err.message);
+    console.log('Rejected: Database Not Created!:', err.message);
   }
 };
 
