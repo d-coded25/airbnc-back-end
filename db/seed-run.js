@@ -1,3 +1,5 @@
 const createTestDatabase = require('./seed');
 
-createTestDatabase();
+const testData = require('./data/test/index');
+
+createTestDatabase(testData);
