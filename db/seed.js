@@ -2,7 +2,7 @@ const db = require('./connection');
 
 const format = require('pg-format');
 
-const { propertyTypesFormatter } = require('./utils');
+const { propertyTypesFormatter, usersFormatter } = require('./utils');
 
 const {
   dropTablesQueries,
@@ -16,7 +16,7 @@ const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
 const { createPropertyTypes, createUsers, createProperties, createReviews } =
   createTablesQueries;
 
-const { insertPropertyTypes } = insertDataQueries;
+const { insertPropertyTypes, insertUsers } = insertDataQueries;
 
 const dropTables = async function () {
   try {
@@ -24,6 +24,7 @@ const dropTables = async function () {
     await db.query(dropProperties);
     await db.query(dropUsers);
     await db.query(dropPropertyTypes);
+
     console.log('Resolved: Drop Tables');
   } catch (err) {
     console.log('Rejected: Drop Tables!:', err.message);
@@ -36,6 +37,7 @@ const createTables = async function () {
     await db.query(createUsers);
     await db.query(createProperties);
     await db.query(createReviews);
+
     console.log('Resolved: Create Tables');
   } catch (err) {
     console.log('Rejected: Create Tables!:', err.message);
@@ -44,10 +46,13 @@ const createTables = async function () {
 
 const insertData = async function (testData) {
   try {
-    const { propertyTypesData } = testData;
+    const { propertyTypesData, usersData } = testData;
     const propertyTypes = propertyTypesFormatter(propertyTypesData);
+    const users = usersFormatter(usersData);
 
     await db.query(format(insertPropertyTypes, propertyTypes));
+    await db.query(format(insertUsers, users));
+
     console.log('Resolved: Inserted Data Into Tables');
   } catch (err) {
     console.log('Rejected: Inserted Data Into Tables!:', err.message);
@@ -59,6 +64,7 @@ const createTestDatabase = async function (testData) {
     await dropTables();
     await createTables();
     await insertData(testData);
+
     console.log('Resolved: Database Created');
   } catch (err) {
     console.log('Rejected: Database Not Created!:', err.message);
