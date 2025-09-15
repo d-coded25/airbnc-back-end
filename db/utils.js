@@ -2,7 +2,6 @@ const propertyTypesFormatter = function (propertyTypesData) {
   const propertyTypes = propertyTypesData.map((property) => {
     return [property.property_type, property.description];
   });
-
   return propertyTypes;
 };
 
@@ -20,4 +19,17 @@ const usersFormatter = function (usersData) {
   return users;
 };
 
-module.exports = { propertyTypesFormatter, usersFormatter };
+const usersLookup = function (users) {
+  const usersAndIds = {};
+  users.forEach((user) => {
+    const name = `${user.first_name} ${user.surname}`;
+    usersAndIds[name] = user.user_id;
+  });
+  return usersAndIds;
+};
+
+module.exports = {
+  propertyTypesFormatter,
+  usersFormatter,
+  usersLookup,
+};
