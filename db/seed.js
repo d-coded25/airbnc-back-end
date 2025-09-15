@@ -2,8 +2,14 @@ const db = require('./connection');
 
 const format = require('pg-format');
 
-const { propertyTypesFormatter, usersFormatter } = require('./utils');
+// Utility Functions:
+const {
+  propertyTypesFormatter,
+  usersFormatter,
+  usersLookup,
+} = require('./utils');
 
+// Queries:
 const {
   dropTablesQueries,
   createTablesQueries,
@@ -16,8 +22,10 @@ const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
 const { createPropertyTypes, createUsers, createProperties, createReviews } =
   createTablesQueries;
 
-const { insertPropertyTypes, insertUsers } = insertDataQueries;
+const { insertPropertyTypes, insertUsers, insertProperties } =
+  insertDataQueries;
 
+// Drop Tables:
 const dropTables = async function () {
   try {
     await db.query(dropReviews);
@@ -31,6 +39,7 @@ const dropTables = async function () {
   }
 };
 
+// Create Tables:
 const createTables = async function () {
   try {
     await db.query(createPropertyTypes);
@@ -44,14 +53,21 @@ const createTables = async function () {
   }
 };
 
+// Insert Table Data:
 const insertData = async function (testData) {
   try {
-    const { propertyTypesData, usersData } = testData;
-    const propertyTypes = propertyTypesFormatter(propertyTypesData);
-    const users = usersFormatter(usersData);
+    const { propertyTypesData, usersData, propertiesData } = testData;
 
+    // Insert Property Types Data:
+    const propertyTypes = propertyTypesFormatter(propertyTypesData);
     await db.query(format(insertPropertyTypes, propertyTypes));
-    await db.query(format(insertUsers, users));
+
+    // Insert Users Data:
+    const users = usersFormatter(usersData);
+    const { rows: usersResponse } = await db.query(format(insertUsers, users));
+
+    // Insert Property Data:
+    const usersAndIds = usersLookup(usersResponse);
 
     console.log('Resolved: Inserted Data Into Tables');
   } catch (err) {
@@ -59,6 +75,7 @@ const insertData = async function (testData) {
   }
 };
 
+// Main Database Creation Function:
 const createTestDatabase = async function (testData) {
   try {
     await dropTables();
