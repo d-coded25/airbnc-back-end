@@ -7,6 +7,7 @@ const {
   propertyTypesFormatter,
   usersFormatter,
   usersLookup,
+  propertiesFormatter,
 } = require('./utils');
 
 // Queries:
@@ -68,6 +69,8 @@ const insertData = async function (testData) {
 
     // Insert Property Data:
     const usersAndIds = usersLookup(usersResponse);
+    const properties = propertiesFormatter(propertiesData, usersAndIds);
+    await db.query(format(insertProperties, properties));
 
     console.log('Resolved: Inserted Data Into Tables');
   } catch (err) {
