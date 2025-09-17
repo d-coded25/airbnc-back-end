@@ -42,9 +42,21 @@ const propertiesFormatter = function (propertiesData, usersAndIds) {
   return properties;
 };
 
+const guestsLookup = function (users) {
+  const guests = {};
+  users.forEach((user) => {
+    if (!user.is_host) {
+      const name = `${user.first_name} ${user.surname}`;
+      guests[name] = user.user_id;
+    }
+  });
+  return guests;
+};
+
 module.exports = {
   propertyTypesFormatter,
   usersFormatter,
   usersLookup,
   propertiesFormatter,
+  guestsLookup,
 };

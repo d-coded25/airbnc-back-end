@@ -3,9 +3,10 @@ const {
   usersFormatter,
   usersLookup,
   propertiesFormatter,
+  guestsLookup,
 } = require('../utils');
 
-describe('Property types formatter', () => {
+describe('Property types formatter function', () => {
   test('should return an array', () => {
     const dataInput = [];
     const dataOutput = true;
@@ -52,7 +53,7 @@ describe('Property types formatter', () => {
   });
 });
 
-describe('Users types formatter', () => {
+describe('Users types formatter function', () => {
   test('should return an array', () => {
     const dataInput = [];
     const dataOutput = true;
@@ -146,7 +147,7 @@ describe('Users types formatter', () => {
   });
 });
 
-describe('Users lookup object', () => {
+describe('Users lookup object function', () => {
   test('should return the data type object', () => {
     const dataInput = [];
     const dataOutput = typeof {};
@@ -154,7 +155,7 @@ describe('Users lookup object', () => {
 
     expect(typeof dataReturned).toBe(dataOutput);
   });
-  test('should return an object containing a single property, where the key is the full name and value is the user id', () => {
+  test('should return an object containing a single property, where the key is the full name and the value is the user id', () => {
     const dataInput = [
       {
         user_id: 1,
@@ -205,7 +206,7 @@ describe('Users lookup object', () => {
   });
 });
 
-describe('Properties formatter', () => {
+describe('Properties formatter function', () => {
   test('should return an array', () => {
     const dataInput = [];
     const dataOutput = true;
@@ -328,5 +329,43 @@ describe('Properties formatter', () => {
     expect(dataReturned2[1][4]).toBe(150);
     expect(dataReturned2[1][5]).toBe('Description of Cosy Family House.');
     expect(dataReturned2).toEqual(dataOutput);
+  });
+});
+
+describe('Guests lookup object function', () => {
+  test('should return the data type object', () => {
+    const dataInput = [];
+    const dataOutput = typeof {};
+    const dataReturned = usersLookup(dataInput);
+
+    expect(typeof dataReturned).toBe(dataOutput);
+  });
+  test('should return an object where the keys are the full names and the values are the user ids, but only if the user is a not a host (guest)', () => {
+    const dataInput = [
+      {
+        user_id: 1,
+        first_name: 'Alice',
+        surname: 'Johnson',
+        email: 'alice@example.com',
+        phone_number: '+44 7000 111111',
+        is_host: true,
+        avatar: 'https://example.com/images/alice.jpg',
+      },
+      {
+        user_id: 2,
+        first_name: 'Bob',
+        surname: 'Smith',
+        email: 'bob@example.com',
+        phone_number: '+44 7000 222222',
+        is_host: false,
+        avatar: 'https://example.com/images/bob.jpg',
+      },
+    ];
+    const dataOutput = { 'Bob Smith': 2 };
+    const dataReturned = guestsLookup(dataInput);
+
+    expect(dataReturned).toHaveProperty('Bob Smith');
+    expect(dataReturned['Bob Smith']).toBe(2);
+    expect(dataReturned).toEqual(dataOutput);
   });
 });
