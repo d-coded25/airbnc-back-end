@@ -28,8 +28,23 @@ const usersLookup = function (users) {
   return usersAndIds;
 };
 
+const propertiesFormatter = function (propertiesData, usersAndIds) {
+  const properties = propertiesData.map((property) => {
+    return [
+      usersAndIds[property.host_name],
+      property.name,
+      property.location,
+      property.property_type,
+      property.price_per_night,
+      property.description,
+    ];
+  });
+  return properties;
+};
+
 module.exports = {
   propertyTypesFormatter,
   usersFormatter,
   usersLookup,
+  propertiesFormatter,
 };

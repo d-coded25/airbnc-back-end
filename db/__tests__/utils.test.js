@@ -2,15 +2,16 @@ const {
   propertyTypesFormatter,
   usersFormatter,
   usersLookup,
+  propertiesFormatter,
 } = require('../utils');
 
 describe('Property types formatter', () => {
-  test('should return the data type object', () => {
+  test('should return an array', () => {
     const dataInput = [];
-    const dataOutput = typeof [];
+    const dataOutput = true;
     const dataReturned = propertyTypesFormatter(dataInput);
 
-    expect(typeof dataReturned).toBe(dataOutput);
+    expect(Array.isArray(dataReturned)).toBe(dataOutput);
   });
   test('should return an array containing a single nested array, with the array elements being the object property values', () => {
     const dataInput = [
@@ -52,12 +53,12 @@ describe('Property types formatter', () => {
 });
 
 describe('Users types formatter', () => {
-  test('should return the data type object', () => {
+  test('should return an array', () => {
     const dataInput = [];
-    const dataOutput = typeof [];
+    const dataOutput = true;
     const dataReturned = usersFormatter(dataInput);
 
-    expect(typeof dataReturned).toBe(dataOutput);
+    expect(Array.isArray(dataReturned)).toBe(dataOutput);
   });
   test('should return an array containing a single nested array, with the array elements being the object property values', () => {
     const dataInput = [
@@ -201,5 +202,131 @@ describe('Users lookup object', () => {
     expect(dataReturned['Alice Johnson']).toBe(1);
     expect(dataReturned['Bob Smith']).toBe(2);
     expect(dataReturned).toEqual(dataOutput);
+  });
+});
+
+describe('Properties formatter', () => {
+  test('should return an array', () => {
+    const dataInput = [];
+    const dataOutput = true;
+    const dataReturned = propertiesFormatter(dataInput);
+
+    expect(Array.isArray(dataReturned)).toBe(dataOutput);
+  });
+  test('should return an array containing a single nested array, with the array elements being the object property values', () => {
+    const dataInput1 = [
+      {
+        user_id: 1,
+        first_name: 'Alice',
+        surname: 'Johnson',
+        email: 'alice@example.com',
+        phone_number: '+44 7000 111111',
+        is_host: true,
+        avatar: 'https://example.com/images/alice.jpg',
+      },
+    ];
+    const dataInput2 = [
+      {
+        name: 'Modern Apartment in City Center',
+        property_type: 'Apartment',
+        location: 'London, UK',
+        price_per_night: 120.0,
+        description: 'Description of Modern Apartment in City Center.',
+        host_name: 'Alice Johnson',
+        amenities: ['WiFi', 'TV', 'Kitchen'],
+      },
+    ];
+    const dataOutput = [
+      [
+        1,
+        'Modern Apartment in City Center',
+        'London, UK',
+        'Apartment',
+        120,
+        'Description of Modern Apartment in City Center.',
+      ],
+    ];
+
+    const dataReturned1 = usersLookup(dataInput1);
+    const dataReturned2 = propertiesFormatter(dataInput2, dataReturned1);
+
+    expect(dataReturned2[0][0]).toBe(1);
+    expect(dataReturned2[0][1]).toBe('Modern Apartment in City Center');
+    expect(dataReturned2[0][2]).toBe('London, UK');
+    expect(dataReturned2[0][3]).toBe('Apartment');
+    expect(dataReturned2[0][4]).toBe(120);
+    expect(dataReturned2[0][5]).toBe(
+      'Description of Modern Apartment in City Center.'
+    );
+    expect(dataReturned2).toEqual(dataOutput);
+  });
+  test('should return an array containing multiple nested arrays, with the array elements being the object property values', () => {
+    const dataInput1 = [
+      {
+        user_id: 1,
+        first_name: 'Alice',
+        surname: 'Johnson',
+        email: 'alice@example.com',
+        phone_number: '+44 7000 111111',
+        is_host: true,
+        avatar: 'https://example.com/images/alice.jpg',
+      },
+    ];
+    const dataInput2 = [
+      {
+        name: 'Modern Apartment in City Center',
+        property_type: 'Apartment',
+        location: 'London, UK',
+        price_per_night: 120.0,
+        description: 'Description of Modern Apartment in City Center.',
+        host_name: 'Alice Johnson',
+        amenities: ['WiFi', 'TV', 'Kitchen'],
+      },
+      {
+        name: 'Cosy Family House',
+        property_type: 'House',
+        location: 'Manchester, UK',
+        price_per_night: 150.0,
+        description: 'Description of Cosy Family House.',
+        host_name: 'Alice Johnson',
+        amenities: ['WiFi', 'TV', 'Kitchen'],
+      },
+    ];
+    const dataOutput = [
+      [
+        1,
+        'Modern Apartment in City Center',
+        'London, UK',
+        'Apartment',
+        120.0,
+        'Description of Modern Apartment in City Center.',
+      ],
+      [
+        1,
+        'Cosy Family House',
+        'Manchester, UK',
+        'House',
+        150.0,
+        'Description of Cosy Family House.',
+      ],
+    ];
+    const dataReturned1 = usersLookup(dataInput1);
+    const dataReturned2 = propertiesFormatter(dataInput2, dataReturned1);
+
+    expect(dataReturned2[0][0]).toBe(1);
+    expect(dataReturned2[0][1]).toBe('Modern Apartment in City Center');
+    expect(dataReturned2[0][2]).toBe('London, UK');
+    expect(dataReturned2[0][3]).toBe('Apartment');
+    expect(dataReturned2[0][4]).toBe(120);
+    expect(dataReturned2[0][5]).toBe(
+      'Description of Modern Apartment in City Center.'
+    );
+    expect(dataReturned2[1][0]).toBe(1);
+    expect(dataReturned2[1][1]).toBe('Cosy Family House');
+    expect(dataReturned2[1][2]).toBe('Manchester, UK');
+    expect(dataReturned2[1][3]).toBe('House');
+    expect(dataReturned2[1][4]).toBe(150);
+    expect(dataReturned2[1][5]).toBe('Description of Cosy Family House.');
+    expect(dataReturned2).toEqual(dataOutput);
   });
 });
