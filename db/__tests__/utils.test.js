@@ -4,6 +4,7 @@ const {
   usersLookup,
   propertiesFormatter,
   guestsLookup,
+  propertiesLookup,
 } = require('../utils');
 
 describe('Property types formatter function', () => {
@@ -155,7 +156,7 @@ describe('Users lookup object function', () => {
 
     expect(typeof dataReturned).toBe(dataOutput);
   });
-  test('should return an object containing a single property, where the key is the full name and the value is the user id', () => {
+  test('should return an object containing a single property, where the key is the users full name and the value is the user id', () => {
     const dataInput = [
       {
         user_id: 1,
@@ -174,7 +175,7 @@ describe('Users lookup object function', () => {
     expect(dataReturned['Alice Johnson']).toBe(1);
     expect(dataReturned).toEqual(dataOutput);
   });
-  test('should return an object containing multiple properties, where all the keys are the full names and all the values are the user ids', () => {
+  test('should return an object containing multiple properties, where all the keys are the users full names and all the values are the user ids', () => {
     const dataInput = [
       {
         user_id: 1,
@@ -340,7 +341,7 @@ describe('Guests lookup object function', () => {
 
     expect(typeof dataReturned).toBe(dataOutput);
   });
-  test('should return an object where the keys are the full names and the values are the user ids, but only if the user is a not a host (guest)', () => {
+  test('should return an object where the keys are the users full names and the values are the user ids, but only if the user is a not a host (guest)', () => {
     const dataInput = [
       {
         user_id: 1,
@@ -366,6 +367,68 @@ describe('Guests lookup object function', () => {
 
     expect(dataReturned).toHaveProperty('Bob Smith');
     expect(dataReturned['Bob Smith']).toBe(2);
+    expect(dataReturned).toEqual(dataOutput);
+  });
+});
+
+describe('Properties lookup object function', () => {
+  test('should return an object', () => {
+    const dataInput = [];
+    const dataOutput = typeof {};
+    const dataReturned = propertiesLookup(dataInput);
+
+    expect(typeof dataReturned).toBe(dataOutput);
+  });
+  test('should return an object containing a single property, where the key is the property name and the value is the property id', () => {
+    const dataInput = [
+      {
+        property_id: 1,
+        host_id: 1,
+        name: 'Modern Apartment in City Center',
+        location: 'London, UK',
+        property_type: 'Apartment',
+        price_per_night: '120',
+        description: 'Description of Modern Apartment in City Center.',
+      },
+    ];
+    const dataOutput = { 'Modern Apartment in City Center': 1 };
+    const dataReturned = propertiesLookup(dataInput);
+
+    expect(dataReturned).toHaveProperty('Modern Apartment in City Center');
+    expect(dataReturned['Modern Apartment in City Center']).toBe(1);
+    expect(dataReturned).toEqual(dataOutput);
+  });
+  test('should return an object containing multiple properties, where the keys are the property names and the value are the property ids', () => {
+    const dataInput = [
+      {
+        property_id: 1,
+        host_id: 1,
+        name: 'Modern Apartment in City Center',
+        location: 'London, UK',
+        property_type: 'Apartment',
+        price_per_night: '120',
+        description: 'Description of Modern Apartment in City Center.',
+      },
+      {
+        property_id: 2,
+        host_id: 1,
+        name: 'Cosy Family House',
+        location: 'Manchester, UK',
+        property_type: 'House',
+        price_per_night: '150',
+        description: 'Description of Cosy Family House.',
+      },
+    ];
+    const dataOutput = {
+      'Modern Apartment in City Center': 1,
+      'Cosy Family House': 2,
+    };
+    const dataReturned = propertiesLookup(dataInput);
+
+    expect(dataReturned).toHaveProperty('Modern Apartment in City Center');
+    expect(dataReturned['Modern Apartment in City Center']).toBe(1);
+    expect(dataReturned).toHaveProperty('Cosy Family House');
+    expect(dataReturned['Cosy Family House']).toBe(2);
     expect(dataReturned).toEqual(dataOutput);
   });
 });

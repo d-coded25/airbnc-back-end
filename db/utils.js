@@ -43,14 +43,23 @@ const propertiesFormatter = function (propertiesData, usersAndIds) {
 };
 
 const guestsLookup = function (users) {
-  const guests = {};
+  const guestsAndIds = {};
   users.forEach((user) => {
     if (!user.is_host) {
       const name = `${user.first_name} ${user.surname}`;
-      guests[name] = user.user_id;
+      guestsAndIds[name] = user.user_id;
     }
   });
-  return guests;
+  return guestsAndIds;
+};
+
+const propertiesLookup = function (properties) {
+  const propertiesAndIds = {};
+  properties.forEach((property) => {
+    const propertyName = property.name;
+    propertiesAndIds[propertyName] = property.property_id;
+  });
+  return propertiesAndIds;
 };
 
 module.exports = {
@@ -59,4 +68,5 @@ module.exports = {
   usersLookup,
   propertiesFormatter,
   guestsLookup,
+  propertiesLookup,
 };
