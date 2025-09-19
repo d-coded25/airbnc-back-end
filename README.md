@@ -21,5 +21,11 @@ npm install
 3. Make sure the .env file is located at the project root level and contains the correct database credentials:
 
 ```sh
-PGDATABASE=airbnc
+PGDATABASE=airbnc_test
+```
+
+4. To seed the database with initial data, please run the following NPM script:
+
+```sh
+npm run db-seed-run
 ```
