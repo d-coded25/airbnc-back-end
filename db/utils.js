@@ -19,19 +19,19 @@ const usersFormatter = function (usersData) {
   return users;
 };
 
-const usersLookup = function (users) {
+const usersLookup = function (usersData) {
   const usersAndIds = {};
-  users.forEach((user) => {
+  usersData.forEach((user) => {
     const name = `${user.first_name} ${user.surname}`;
     usersAndIds[name] = user.user_id;
   });
   return usersAndIds;
 };
 
-const propertiesFormatter = function (propertiesData, usersAndIds) {
+const propertiesFormatter = function (propertiesData, usersAndIdsData) {
   const properties = propertiesData.map((property) => {
     return [
-      usersAndIds[property.host_name],
+      usersAndIdsData[property.host_name],
       property.name,
       property.location,
       property.property_type,
@@ -42,9 +42,9 @@ const propertiesFormatter = function (propertiesData, usersAndIds) {
   return properties;
 };
 
-const guestsLookup = function (users) {
+const guestsLookup = function (usersData) {
   const guestsAndIds = {};
-  users.forEach((user) => {
+  usersData.forEach((user) => {
     if (!user.is_host) {
       const name = `${user.first_name} ${user.surname}`;
       guestsAndIds[name] = user.user_id;
@@ -53,13 +53,26 @@ const guestsLookup = function (users) {
   return guestsAndIds;
 };
 
-const propertiesLookup = function (properties) {
+const propertiesLookup = function (propertiesData) {
   const propertiesAndIds = {};
-  properties.forEach((property) => {
+  propertiesData.forEach((property) => {
     const propertyName = property.name;
     propertiesAndIds[propertyName] = property.property_id;
   });
   return propertiesAndIds;
+};
+
+const reviewsFormatter = function (reviewsData, propertiesData, guestsData) {
+  const reviews = reviewsData.map((review) => {
+    return [
+      propertiesData[review.property_name],
+      guestsData[review.guest_name],
+      review.rating,
+      review.comment,
+    ];
+  });
+
+  return reviews;
 };
 
 module.exports = {
@@ -69,4 +82,5 @@ module.exports = {
   propertiesFormatter,
   guestsLookup,
   propertiesLookup,
+  reviewsFormatter,
 };
