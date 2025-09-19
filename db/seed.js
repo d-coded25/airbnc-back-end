@@ -8,6 +8,9 @@ const {
   usersFormatter,
   usersLookup,
   propertiesFormatter,
+  guestsLookup,
+  propertiesLookup,
+  reviewsFormatter,
 } = require('./utils');
 
 // Queries:
@@ -23,7 +26,7 @@ const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
 const { createPropertyTypes, createUsers, createProperties, createReviews } =
   createTablesQueries;
 
-const { insertPropertyTypes, insertUsers, insertProperties } =
+const { insertPropertyTypes, insertUsers, insertProperties, insertReviews } =
   insertDataQueries;
 
 // Drop Tables:
@@ -57,7 +60,9 @@ const createTables = async function () {
 // Insert Table Data:
 const insertData = async function (testData) {
   try {
-    const { propertyTypesData, usersData, propertiesData } = testData;
+    // JSON Data:
+    const { propertyTypesData, usersData, propertiesData, reviewsData } =
+      testData;
 
     // Insert Property Types Data:
     const propertyTypes = propertyTypesFormatter(propertyTypesData);
@@ -67,10 +72,22 @@ const insertData = async function (testData) {
     const users = usersFormatter(usersData);
     const { rows: usersResponse } = await db.query(format(insertUsers, users));
 
-    // Insert Property Data:
+    // Insert Properties Data:
     const usersAndIds = usersLookup(usersResponse);
     const properties = propertiesFormatter(propertiesData, usersAndIds);
-    await db.query(format(insertProperties, properties));
+    const { rows: propertiesResponse } = await db.query(
+      format(insertProperties, properties)
+    );
+
+    // Insert Reviews Data:
+    const guestsAndIds = guestsLookup(usersResponse);
+    const propertiesAndIds = propertiesLookup(propertiesResponse);
+    const reviews = reviewsFormatter(
+      reviewsData,
+      propertiesAndIds,
+      guestsAndIds
+    );
+    await db.query(format(insertReviews, reviews));
 
     console.log('Resolved: Inserted Data Into Tables');
   } catch (err) {
