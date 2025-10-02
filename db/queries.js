@@ -37,6 +37,13 @@ const createTablesQueries = {
                     comment TEXT,
                     created_at TIMESTAMP default NOW()
                   );`,
+  createImages: `CREATE TABLE images (
+                  image_id SERIAL PRIMARY KEY,
+                  property_id INT NOT NULL REFERENCES properties(property_id),
+                  image_url VARCHAR NOT NULL,
+                  alt_text VARCHAR NOT NULL
+  
+                )`,
 };
 
 const insertDataQueries = {
