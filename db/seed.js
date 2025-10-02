@@ -23,8 +23,13 @@ const {
 const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
   dropTablesQueries;
 
-const { createPropertyTypes, createUsers, createProperties, createReviews } =
-  createTablesQueries;
+const {
+  createPropertyTypes,
+  createUsers,
+  createProperties,
+  createReviews,
+  createImages,
+} = createTablesQueries;
 
 const { insertPropertyTypes, insertUsers, insertProperties, insertReviews } =
   insertDataQueries;
@@ -50,6 +55,7 @@ const createTables = async function () {
     await db.query(createUsers);
     await db.query(createProperties);
     await db.query(createReviews);
+    await db.query(createImages);
 
     console.log('Resolved: Create Tables');
   } catch (err) {
