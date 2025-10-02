@@ -59,6 +59,9 @@ const insertDataQueries = {
   insertReviews: `INSERT INTO reviews
                     (property_id, guest_id, rating, comment)
                     VALUES %L RETURNING *;`,
+  insertImages: `INSERT INTO images
+                    (property_id, image_url, alt_text)
+                    VALUES %L RETURNING *;`,
 };
 
 module.exports = { dropTablesQueries, createTablesQueries, insertDataQueries };
