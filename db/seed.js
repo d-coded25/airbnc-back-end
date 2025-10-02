@@ -11,6 +11,7 @@ const {
   guestsLookup,
   propertiesLookup,
   reviewsFormatter,
+  imagesFormatter,
 } = require('./utils');
 
 // Queries:
@@ -36,8 +37,13 @@ const {
   createImages,
 } = createTablesQueries;
 
-const { insertPropertyTypes, insertUsers, insertProperties, insertReviews } =
-  insertDataQueries;
+const {
+  insertPropertyTypes,
+  insertUsers,
+  insertProperties,
+  insertReviews,
+  insertImages,
+} = insertDataQueries;
 
 // Drop Tables:
 const dropTables = async function () {
@@ -72,9 +78,14 @@ const createTables = async function () {
 // Insert Table Data:
 const insertData = async function (testData) {
   try {
-    // JSON Data:
-    const { propertyTypesData, usersData, propertiesData, reviewsData } =
-      testData;
+    // Test DB Data:
+    const {
+      propertyTypesData,
+      usersData,
+      propertiesData,
+      reviewsData,
+      imagesData,
+    } = testData;
 
     // Insert Property Types Data:
     const propertyTypes = propertyTypesFormatter(propertyTypesData);
@@ -100,6 +111,10 @@ const insertData = async function (testData) {
       guestsAndIds
     );
     await db.query(format(insertReviews, reviews));
+
+    // Insert Images Data:
+    const images = imagesFormatter(imagesData, propertiesAndIds);
+    await db.query(format(insertImages, images));
 
     console.log('Resolved: Inserted Data Into Tables');
   } catch (err) {
