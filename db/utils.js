@@ -75,6 +75,17 @@ const reviewsFormatter = function (reviewsData, propertiesData, guestsData) {
   return reviews;
 };
 
+const imagesFormatter = function (imagesData, propertiesData) {
+  const images = imagesData.map((image) => {
+    return [
+      propertiesData[image.property_name],
+      image.image_url,
+      image.alt_tag,
+    ];
+  });
+  return images;
+};
+
 module.exports = {
   propertyTypesFormatter,
   usersFormatter,
@@ -83,4 +94,5 @@ module.exports = {
   guestsLookup,
   propertiesLookup,
   reviewsFormatter,
+  imagesFormatter,
 };

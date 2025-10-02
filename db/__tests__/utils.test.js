@@ -6,6 +6,7 @@ const {
   guestsLookup,
   propertiesLookup,
   reviewsFormatter,
+  imagesFormatter,
 } = require('../utils');
 
 describe('Property types formatter function', () => {
@@ -617,6 +618,120 @@ describe('Reviews formatter function', () => {
     expect(reviewsFormattedData[1][2]).toBe(2);
     expect(reviewsFormattedData[1][3]).toBe(
       'Comment about Modern Apartment in City Center: Too noisy at night, and the apartment felt cramped. Would not stay again.'
+    );
+  });
+});
+
+describe('Images formatter function', () => {
+  test('should return an array', () => {
+    const dataInput = [];
+    const dataOutput = true;
+    const dataReturned = imagesFormatter(dataInput);
+
+    expect(Array.isArray(dataReturned)).toBe(dataOutput);
+  });
+  test('should return an array containing a single nested array, with the array elements being the objects property values', () => {
+    const imagesData = [
+      {
+        property_name: 'Modern Apartment in City Center',
+        image_url: 'https://example.com/images/modern_apartment_1.jpg',
+        alt_tag: 'Alt tag for Modern Apartment in City Center',
+      },
+    ];
+    const dbPropertiesResponseData = [
+      {
+        property_id: 1,
+        host_id: 1,
+        name: 'Modern Apartment in City Center',
+        location: 'London, UK',
+        property_type: 'Apartment',
+        price_per_night: '120',
+        description: 'Description of Modern Apartment in City Center.',
+      },
+    ];
+    const imagesOutputData = [
+      [
+        1,
+        'https://example.com/images/modern_apartment_1.jpg',
+        'Alt tag for Modern Apartment in City Center',
+      ],
+    ];
+
+    const propertiesLookupData = propertiesLookup(dbPropertiesResponseData);
+
+    const imagesFormattedData = imagesFormatter(
+      imagesData,
+      propertiesLookupData
+    );
+
+    expect(imagesFormattedData).toEqual(imagesOutputData);
+    expect(imagesFormattedData[0][0]).toBe(1);
+    expect(imagesFormattedData[0][1]).toBe(
+      'https://example.com/images/modern_apartment_1.jpg'
+    );
+    expect(imagesFormattedData[0][2]).toBe(
+      'Alt tag for Modern Apartment in City Center'
+    );
+  });
+  test('should return an array containing multiple nested arrays, with the array elements being the object property values', () => {
+    const imagesData = [
+      {
+        property_name: 'Modern Apartment in City Center',
+        image_url: 'https://example.com/images/modern_apartment_1.jpg',
+        alt_tag: 'Alt tag for Modern Apartment in City Center',
+      },
+      {
+        property_name: 'Modern Apartment in City Center',
+        image_url: 'https://example.com/images/modern_apartment_3.jpg',
+        alt_tag: 'Alt tag for Modern Apartment in City Center 2',
+      },
+    ];
+
+    const dbPropertiesResponseData = [
+      {
+        property_id: 1,
+        host_id: 1,
+        name: 'Modern Apartment in City Center',
+        location: 'London, UK',
+        property_type: 'Apartment',
+        price_per_night: '120',
+        description: 'Description of Modern Apartment in City Center.',
+      },
+    ];
+    const imagesOutputData = [
+      [
+        1,
+        'https://example.com/images/modern_apartment_1.jpg',
+        'Alt tag for Modern Apartment in City Center',
+      ],
+      [
+        1,
+        'https://example.com/images/modern_apartment_3.jpg',
+        'Alt tag for Modern Apartment in City Center 2',
+      ],
+    ];
+
+    const propertiesLookupData = propertiesLookup(dbPropertiesResponseData);
+
+    const imagesFormattedData = imagesFormatter(
+      imagesData,
+      propertiesLookupData
+    );
+
+    expect(imagesFormattedData).toEqual(imagesOutputData);
+    expect(imagesFormattedData[0][0]).toBe(1);
+    expect(imagesFormattedData[0][1]).toBe(
+      'https://example.com/images/modern_apartment_1.jpg'
+    );
+    expect(imagesFormattedData[0][2]).toBe(
+      'Alt tag for Modern Apartment in City Center'
+    );
+    expect(imagesFormattedData[1][0]).toBe(1);
+    expect(imagesFormattedData[1][1]).toBe(
+      'https://example.com/images/modern_apartment_3.jpg'
+    );
+    expect(imagesFormattedData[1][2]).toBe(
+      'Alt tag for Modern Apartment in City Center 2'
     );
   });
 });
