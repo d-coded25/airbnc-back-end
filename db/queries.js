@@ -1,4 +1,5 @@
 const dropTablesQueries = {
+  dropImages: 'DROP TABLE IF EXISTS images;',
   dropPropertyTypes: 'DROP TABLE IF EXISTS property_types;',
   dropUsers: `DROP TABLE IF EXISTS users;`,
   dropProperties: `DROP TABLE IF EXISTS properties;`,
