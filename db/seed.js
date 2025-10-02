@@ -20,8 +20,13 @@ const {
   insertDataQueries,
 } = require('./queries');
 
-const { dropPropertyTypes, dropUsers, dropProperties, dropReviews } =
-  dropTablesQueries;
+const {
+  dropPropertyTypes,
+  dropUsers,
+  dropProperties,
+  dropReviews,
+  dropImages,
+} = dropTablesQueries;
 
 const {
   createPropertyTypes,
@@ -37,6 +42,7 @@ const { insertPropertyTypes, insertUsers, insertProperties, insertReviews } =
 // Drop Tables:
 const dropTables = async function () {
   try {
+    await db.query(dropImages);
     await db.query(dropReviews);
     await db.query(dropProperties);
     await db.query(dropUsers);
