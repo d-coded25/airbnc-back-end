@@ -1,8 +1,8 @@
 const dropTablesQueries = {
-  dropPropertyTypes: 'DROP TABLE property_types;',
-  dropUsers: `DROP TABLE users;`,
-  dropProperties: `DROP TABLE properties;`,
-  dropReviews: `DROP TABLE reviews;`,
+  dropPropertyTypes: 'DROP TABLE IF EXISTS property_types;',
+  dropUsers: `DROP TABLE IF EXISTS users;`,
+  dropProperties: `DROP TABLE IF EXISTS properties;`,
+  dropReviews: `DROP TABLE IF EXISTS reviews;`,
 };
 
 const createTablesQueries = {
