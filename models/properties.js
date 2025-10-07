@@ -8,4 +8,10 @@ const selectProperties = async function () {
   return properties;
 };
 
-module.exports = { selectProperties };
+const selectPropertyById = async function (id) {
+  const { selectPropertyById } = selectQueries;
+  const { rows: property } = await db.query(selectPropertyById, [id]);
+  return property;
+};
+
+module.exports = { selectProperties, selectPropertyById };
