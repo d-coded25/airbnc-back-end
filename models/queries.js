@@ -17,4 +17,10 @@ const selectQueries = {
                         WHERE properties.property_id = $1;`,
 };
 
-module.exports = { selectQueries };
+const insertQueries = {
+  insertReview: `INSERT INTO reviews 
+                  (property_id, guest_id, rating, comment)
+                  VALUES ($1, $2, $3, $4) RETURNING *;`,
+};
+
+module.exports = { selectQueries, insertQueries };
