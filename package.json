@@ -4,9 +4,10 @@
   "description": "## Project Overview:",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
     "db-setup": "psql -f ./db/db-setup.sql",
-    "seed": "node ./db/seed-run.js"
+    "seed": "node ./db/seed-run.js",
+    "test": "jest --watchAll",
+    "dev": "nodemon listen.js"
   },
   "keywords": [],
   "author": "",
