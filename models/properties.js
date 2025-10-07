@@ -10,7 +10,9 @@ const selectProperties = async function () {
 
 const selectPropertyById = async function (id) {
   const { selectPropertyById } = selectQueries;
-  const { rows: property } = await db.query(selectPropertyById, [id]);
+  const {
+    rows: [property],
+  } = await db.query(selectPropertyById, [id]);
   return property;
 };
 

@@ -9,8 +9,8 @@ const getProperties = async function (req, res, next) {
 };
 
 const getPropertyById = async function (req, res, next) {
-  const { id: propertyId } = req.params;
-  const [property] = await selectPropertyById(propertyId);
+  const { id } = req.params;
+  const property = await selectPropertyById(id);
   res.status(200).send({ property });
 };
 
