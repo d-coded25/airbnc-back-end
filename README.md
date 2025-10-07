@@ -18,14 +18,20 @@ A project that replicates a simplified version of the Airbnb platform.
 npm install
 ```
 
-3. Make sure the .env file is located at the project root level and contains the correct database credentials:
+3. Make sure a .env file is located at the project root level and contains the correct database credentials:
 
-```sh
+```
 PGDATABASE=airbnc_test
 ```
 
 4. To seed the database with initial data, please run the following NPM script:
 
 ```sh
-npm run db-seed-run
+npm run seed
+```
+
+5. To run the express server in development mode, please run the following NPM script:
+
+```sh
+npm run dev
 ```
