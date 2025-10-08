@@ -41,3 +41,45 @@ describe('GET /api/properties', () => {
     });
   });
 });
+
+describe('GET /api/properties/:id', () => {
+  test('should respond with the status code 200', async () => {
+    const server = request(app);
+    const id = 1;
+
+    await server.get(`/api/properties/${id}`).expect(200);
+  });
+  test('should respond with an object containing a key of property', async () => {
+    const server = request(app);
+    const id = 1;
+
+    const response = await server.get(`/api/properties/${id}`);
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(body).toHaveProperty('property');
+  });
+  test('property key should be an object containing the correct keys', async () => {
+    const server = request(app);
+    const id = 1;
+    const propertyKeys = [
+      'property_id',
+      'property_name',
+      'location',
+      'price_per_night',
+      'description',
+      'host',
+      'host_avatar',
+    ];
+
+    const response = await server.get(`/api/properties/${id}`);
+    const {
+      body: { property },
+    } = response;
+
+    expect(Object.keys(property).length).toBeGreaterThan(0);
+    propertyKeys.forEach((key) => {
+      expect(property).toHaveProperty(key);
+    });
+  });
+});
