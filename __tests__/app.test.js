@@ -83,3 +83,63 @@ describe('GET /api/properties/:id', () => {
     });
   });
 });
+
+describe('POST /api/properties/:id/reviews', () => {
+  test('should respond with the status code 201', async () => {
+    const server = request(app);
+    const id = 1;
+    const review = {
+      guest_id: 1,
+      rating: 2,
+      comment: 'Test comment!...',
+    };
+
+    await server.post(`/api/properties/${id}/reviews`).send(review).expect(201);
+  });
+  test('should respond with an object containing a key of review', async () => {
+    const server = request(app);
+    const id = 1;
+    const review = {
+      guest_id: 1,
+      rating: 2,
+      comment: 'Test comment!...',
+    };
+
+    const response = await server
+      .post(`/api/properties/${id}/reviews`)
+      .send(review);
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(body).toHaveProperty('review');
+  });
+  test('review key should be an object containing the correct keys', async () => {
+    const server = request(app);
+    const id = 1;
+    const newReview = {
+      guest_id: 1,
+      rating: 2,
+      comment: 'Test comment!...',
+    };
+    const propertyKeys = [
+      'review_id',
+      'property_id',
+      'guest_id',
+      'rating',
+      'comment',
+      'created_at',
+    ];
+
+    const response = await server
+      .post(`/api/properties/${id}/reviews`)
+      .send(newReview);
+    const {
+      body: { review },
+    } = response;
+
+    expect(Object.keys(review).length).toBeGreaterThan(0);
+    propertyKeys.forEach((key) => {
+      expect(review).toHaveProperty(key);
+    });
+  });
+});
