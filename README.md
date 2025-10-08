@@ -24,14 +24,20 @@ npm install
 PGDATABASE=airbnc_test
 ```
 
-4. To seed the database with initial data, please run the following NPM script:
+4. Make sure to seed the database with initial data by running the following NPM script:
 
 ```sh
 npm run seed
 ```
 
-5. To run the express server in development mode, please run the following NPM script:
+5.  To run the express server in development mode, please run the following NPM script:
 
 ```sh
 npm run dev
+```
+
+6. To run utility tests, please run the following NPM script:
+
+```sh
+npm run test-utils
 ```
