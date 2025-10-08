@@ -36,8 +36,14 @@ npm run seed
 npm run dev
 ```
 
-6. To run utility tests, please run the following NPM script:
+6. To run jest utility tests, please run the following NPM script:
 
 ```sh
 npm run test-utils
+```
+
+7. To run jest app tests, please run the following NPM script:
+
+```sh
+npm run test-app
 ```
