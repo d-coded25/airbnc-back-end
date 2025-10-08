@@ -8,6 +8,10 @@ beforeEach(async () => {
   await seed(testData);
 });
 
+afterAll(async () => {
+  await db.end();
+});
+
 describe('GET /api/properties', () => {
   test('should respond with the status code 200', async () => {
     const server = request(app);
