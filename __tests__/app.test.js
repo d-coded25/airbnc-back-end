@@ -1,5 +1,12 @@
 const request = require('supertest');
 const app = require('../app');
+const seed = require('../db/seed');
+const testData = require('../db/data/test/index');
+const db = require('../db/connection');
+
+beforeEach(async () => {
+  await seed(testData);
+});
 
 describe('GET /api/properties', () => {
   test('should respond with the status code 200', async () => {
