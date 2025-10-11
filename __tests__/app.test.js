@@ -13,159 +13,407 @@ afterAll(async () => {
 });
 
 describe('GET /api/properties', () => {
-  test('should respond with the status code 200', async () => {
-    const server = request(app);
+  describe('happy paths', () => {
+    test('should respond with the status code 200', async () => {
+      const server = request(app);
 
-    await server.get('/api/properties').expect(200);
-  });
-  test('should respond with an object containing a key of properties', async () => {
-    const server = request(app);
+      await server.get('/api/properties').expect(200);
+    });
+    test('should respond with an object containing a key of properties', async () => {
+      const server = request(app);
 
-    const response = await server.get('/api/properties');
-    const { body } = response;
+      const response = await server.get('/api/properties');
+      const { body } = response;
 
-    expect(typeof body).toBe('object');
-    expect(body).toHaveProperty('properties');
-  });
-  test('properties key should be an array of objects containing the correct keys', async () => {
-    const server = request(app);
-    const propertyKeys = [
-      'property_id',
-      'property_name',
-      'location',
-      'price_per_night',
-      'host',
-    ];
+      expect(typeof body).toBe('object');
+      expect(body).toHaveProperty('properties');
+    });
+    test('properties key should be an array of objects containing the correct keys', async () => {
+      const server = request(app);
+      const propertyKeys = [
+        'property_id',
+        'property_name',
+        'location',
+        'price_per_night',
+        'host',
+      ];
 
-    const response = await server.get('/api/properties');
-    const {
-      body: { properties },
-    } = response;
+      const response = await server.get('/api/properties');
+      const {
+        body: { properties },
+      } = response;
 
-    expect(properties.length).toBeGreaterThan(0);
-    properties.forEach((property) => {
-      expect(property).toHaveProperty(propertyKeys[0]);
-      expect(property).toHaveProperty(propertyKeys[1]);
-      expect(property).toHaveProperty(propertyKeys[2]);
-      expect(property).toHaveProperty(propertyKeys[3]);
-      expect(property).toHaveProperty(propertyKeys[4]);
+      expect(properties.length).toBeGreaterThan(0);
+      properties.forEach((property) => {
+        expect(property).toHaveProperty(propertyKeys[0]);
+        expect(property).toHaveProperty(propertyKeys[1]);
+        expect(property).toHaveProperty(propertyKeys[2]);
+        expect(property).toHaveProperty(propertyKeys[3]);
+        expect(property).toHaveProperty(propertyKeys[4]);
+      });
     });
   });
 });
 
 describe('GET /api/properties/:id', () => {
-  test('should respond with the status code 200', async () => {
-    const server = request(app);
-    const id = 1;
+  describe('happy paths', () => {
+    test('should respond with the status code 200', async () => {
+      const server = request(app);
+      const propertyId = 1;
 
-    await server.get(`/api/properties/${id}`).expect(200);
+      await server.get(`/api/properties/${propertyId}`).expect(200);
+    });
+    test('should respond with an object containing a key of property', async () => {
+      const server = request(app);
+      const propertyId = 1;
+
+      const response = await server.get(`/api/properties/${propertyId}`);
+      const { body } = response;
+
+      expect(typeof body).toBe('object');
+      expect(body).toHaveProperty('property');
+    });
+    test('property key should be an object containing the correct keys', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const propertyKeys = [
+        'property_id',
+        'property_name',
+        'location',
+        'price_per_night',
+        'description',
+        'host',
+        'host_avatar',
+      ];
+
+      const response = await server.get(`/api/properties/${propertyId}`);
+      const {
+        body: { property },
+      } = response;
+
+      expect(Object.keys(property).length).toBeGreaterThan(0);
+      propertyKeys.forEach((key) => {
+        expect(property).toHaveProperty(key);
+      });
+    });
   });
-  test('should respond with an object containing a key of property', async () => {
-    const server = request(app);
-    const id = 1;
+  describe('sad paths', () => {
+    test('should respond with the status code 400 for an invalid id', async () => {
+      const server = request(app);
+      const propertyId = 'invalid-id';
 
-    const response = await server.get(`/api/properties/${id}`);
-    const { body } = response;
+      await server.get(`/api/properties/${propertyId}`).expect(400);
+    });
+    test('should respond with the message "bad request" for an invalid id', async () => {
+      const server = request(app);
+      const propertyId = 'invalid-id';
 
-    expect(typeof body).toBe('object');
-    expect(body).toHaveProperty('property');
-  });
-  test('property key should be an object containing the correct keys', async () => {
-    const server = request(app);
-    const id = 1;
-    const propertyKeys = [
-      'property_id',
-      'property_name',
-      'location',
-      'price_per_night',
-      'description',
-      'host',
-      'host_avatar',
-    ];
+      const response = await server.get(`/api/properties/${propertyId}`);
+      const { body: error } = response;
 
-    const response = await server.get(`/api/properties/${id}`);
-    const {
-      body: { property },
-    } = response;
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 404 for a property id that does not yet exist', async () => {
+      const server = request(app);
+      const propertyId = 250;
 
-    expect(Object.keys(property).length).toBeGreaterThan(0);
-    propertyKeys.forEach((key) => {
-      expect(property).toHaveProperty(key);
+      await server.get(`/api/properties/${propertyId}`).expect(404);
+    });
+    test('should respond with the message "property not found" for a property id that does not yet exist', async () => {
+      const server = request(app);
+      const propertyId = 250;
+
+      const response = await server.get(`/api/properties/${propertyId}`);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Property Not Found');
     });
   });
 });
 
 describe('POST /api/properties/:id/reviews', () => {
-  test('should respond with the status code 201', async () => {
-    const server = request(app);
-    const id = 1;
-    const review = {
-      guest_id: 1,
-      rating: 2,
-      comment: 'Test comment!...',
-    };
+  describe('happy paths', () => {
+    test('should respond with the status code 201', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: 'Test comment!...',
+      };
 
-    await server.post(`/api/properties/${id}/reviews`).send(review).expect(201);
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(201);
+    });
+    test('should respond with an object containing a key of review', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: 'Test comment!...',
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body } = response;
+
+      expect(typeof body).toBe('object');
+      expect(body).toHaveProperty('review');
+    });
+    test('review key should be an object containing the correct keys', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const newReview = {
+        guest_id: 1,
+        rating: 2,
+        comment: 'Test comment!...',
+      };
+      const propertyKeys = [
+        'review_id',
+        'property_id',
+        'guest_id',
+        'rating',
+        'comment',
+        'created_at',
+      ];
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(newReview);
+      const {
+        body: { review },
+      } = response;
+
+      expect(Object.keys(review).length).toBeGreaterThan(0);
+      propertyKeys.forEach((key) => {
+        expect(review).toHaveProperty(key);
+      });
+    });
   });
-  test('should respond with an object containing a key of review', async () => {
-    const server = request(app);
-    const id = 1;
-    const review = {
-      guest_id: 1,
-      rating: 2,
-      comment: 'Test comment!...',
-    };
+  describe('sad paths', () => {
+    test('should respond with the status code 400 for an invalid property id', async () => {
+      const server = request(app);
+      const propertyId = 'invalid-id';
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: 'Test comment!...',
+      };
 
-    const response = await server
-      .post(`/api/properties/${id}/reviews`)
-      .send(review);
-    const { body } = response;
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" for an invalid property id', async () => {
+      const server = request(app);
+      const propertyId = 'invalid-id';
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: 'Test comment!...',
+      };
 
-    expect(typeof body).toBe('object');
-    expect(body).toHaveProperty('review');
-  });
-  test('review key should be an object containing the correct keys', async () => {
-    const server = request(app);
-    const id = 1;
-    const newReview = {
-      guest_id: 1,
-      rating: 2,
-      comment: 'Test comment!...',
-    };
-    const propertyKeys = [
-      'review_id',
-      'property_id',
-      'guest_id',
-      'rating',
-      'comment',
-      'created_at',
-    ];
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+      const { body: error } = response;
 
-    const response = await server
-      .post(`/api/properties/${id}/reviews`)
-      .send(newReview);
-    const {
-      body: { review },
-    } = response;
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 400 if guest id is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        rating: 2,
+        comment: 'Test comment!...',
+      };
 
-    expect(Object.keys(review).length).toBeGreaterThan(0);
-    propertyKeys.forEach((key) => {
-      expect(review).toHaveProperty(key);
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" if guest id is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        rating: 2,
+        comment: 'Test comment!...',
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 400 if rating is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        comment: 'Test comment!...',
+      };
+
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" if rating is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        comment: 'Test comment!...',
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 400 if comment is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+      };
+
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" if comment is not provided', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 400 if guest id is not a valid number', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 'invalid-number',
+        rating: 2,
+        comment: 'Test comment!...',
+      };
+
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" if guest id is not a valid number', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 'invalid-number',
+        rating: 2,
+        comment: 'Test comment!...',
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
+    });
+    test('should respond with the status code 400 if rating is not a valid number', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 'invalid-number',
+        comment: 'Test comment!...',
+      };
+
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    test('should respond with the message "bad request" if rating is not a valid string', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 'invalid-number',
+        comment: 'Test comment!...',
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
+    });
+    xtest('should respond with the status code 400 if comment is not a valid string', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: true,
+      };
+
+      await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review)
+        .expect(400);
+    });
+    xtest('should respond with the message "bad request" if comment is not a valid string', async () => {
+      const server = request(app);
+      const propertyId = 1;
+      const review = {
+        guest_id: 1,
+        rating: 2,
+        comment: 25,
+      };
+
+      const response = await server
+        .post(`/api/properties/${propertyId}/reviews`)
+        .send(review);
+      const { body: error } = response;
+
+      expect(error.msg).toBe('Bad Request');
     });
   });
 });
 
 describe('Unknown path error', () => {
-  test('unknown path should respond with the status code 404', async () => {
+  test('should respond with the status code 404 for an unknown path', async () => {
     const server = request(app);
 
     await server.get('/api/unknown').expect(404);
   });
-  test('unknown path should respond with the message "path not found"', async () => {
+  test('should respond with the message "path not found" for an unknown path', async () => {
     const server = request(app);
 
     const { body: error } = await server.get('/api/unknown/path').expect(404);
 
-    expect(error.msg).toBe('Path not found');
+    expect(error.msg).toBe('Path Not Found');
   });
 });

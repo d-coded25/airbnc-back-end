@@ -11,7 +11,14 @@ const getProperties = async function (req, res, next) {
 const getPropertyById = async function (req, res, next) {
   const { id } = req.params;
   const property = await selectPropertyById(id);
-  res.status(200).send({ property });
+
+  if (property) {
+    res.status(200).send({ property });
+  } else {
+    const err = new Error('Property Not Found');
+    err.status = 404;
+    throw err;
+  }
 };
 
 module.exports = {
