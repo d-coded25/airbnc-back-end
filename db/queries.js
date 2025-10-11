@@ -35,7 +35,7 @@ const createTablesQueries = {
                     property_id INT NOT NULL REFERENCES properties(property_id),
                     guest_id INT NOT NULL REFERENCES users(user_id),
                     rating INT NOT NULL,
-                    comment TEXT,
+                    comment TEXT NOT NULL,
                     created_at TIMESTAMP default NOW()
                   );`,
   createImages: `CREATE TABLE images (
