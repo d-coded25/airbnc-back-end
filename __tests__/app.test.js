@@ -154,3 +154,18 @@ describe('POST /api/properties/:id/reviews', () => {
     });
   });
 });
+
+describe('Unknown path error', () => {
+  test('unknown path should respond with the status code 404', async () => {
+    const server = request(app);
+
+    await server.get('/api/unknown').expect(404);
+  });
+  test('unknown path should respond with the message "path not found"', async () => {
+    const server = request(app);
+
+    const { body: error } = await server.get('/api/unknown/path').expect(404);
+
+    expect(error.msg).toBe('Path not found');
+  });
+});
