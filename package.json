@@ -4,7 +4,7 @@
   "description": "## Project Overview:",
   "main": "index.js",
   "scripts": {
-    "db-setup": "psql -f ./db/db-setup.sql",
+    "dbs-setup": "psql -f ./db/db-setup.sql",
     "seed": "node ./db/seed-run.js",
     "test-utils": "jest utils --watchAll",
     "test-app": "jest app --watchAll",
