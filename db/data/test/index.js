@@ -1,4 +1,3 @@
-// Export Database Data:
 exports.bookingsData = require('./bookings.json');
 exports.favouritesData = require('./favourites.json');
 exports.imagesData = require('./images.json');
