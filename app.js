@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 const { getProperties, getPropertyById } = require('./controllers/properties');
-const { postReview } = require('./controllers/reviews');
+const {
+  getPropertyReviews,
+  postPropertyReview,
+} = require('./controllers/reviews');
 const {
   unknownURLHandler,
   badRequestsHandler,
@@ -13,8 +16,9 @@ app.use(express.json());
 
 app.get('/api/properties', getProperties);
 app.get('/api/properties/:id', getPropertyById);
+app.get('/api/properties/:id/reviews', getPropertyReviews);
 
-app.post('/api/properties/:id/reviews', postReview);
+app.post('/api/properties/:id/reviews', postPropertyReview);
 
 app.all('/*unknown', unknownURLHandler);
 

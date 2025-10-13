@@ -15,6 +15,15 @@ const selectQueries = {
                         FROM properties
                         INNER JOIN users ON properties.host_id = users.user_id
                         WHERE properties.property_id = $1;`,
+  selectReviews: `SELECT review_id, 
+                    comment, 
+                    rating,
+                    reviews.created_at,
+                    CONCAT_WS(' ', first_name, surname) AS guest, 
+                    avatar AS guest_avatar 
+                    FROM reviews 
+                    INNER JOIN users ON reviews.guest_id = users.user_id WHERE property_id = $1
+                    ORDER BY created_at DESC;`,
 };
 
 const insertQueries = {

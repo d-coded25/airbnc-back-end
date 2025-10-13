@@ -13,8 +13,7 @@ const badRequestsHandler = function (err, req, res, next) {
 };
 
 const resourceNotFoundHandler = function (err, req, res, next) {
-  const status = err.status;
-  const msg = err.message;
+  const { status, msg } = err;
   res.status(status).send({ msg });
 };
 
