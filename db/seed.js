@@ -69,7 +69,7 @@ const createTables = async function () {
   }
 };
 
-const insertData = async function (testData) {
+const insertData = async function (data) {
   try {
     const {
       propertyTypesData,
@@ -77,7 +77,7 @@ const insertData = async function (testData) {
       propertiesData,
       reviewsData,
       imagesData,
-    } = testData;
+    } = data;
 
     const propertyTypes = propertyTypesFormatter(propertyTypesData);
     await db.query(format(insertPropertyTypes, propertyTypes));
@@ -107,11 +107,11 @@ const insertData = async function (testData) {
   }
 };
 
-const createTestDatabase = async function (testData) {
+const createTestDatabase = async function (data) {
   try {
     await dropTables();
     await createTables();
-    await insertData(testData);
+    await insertData(data);
   } catch (err) {
     console.log('Rejected: Database Not Created!:', err.message);
   }
