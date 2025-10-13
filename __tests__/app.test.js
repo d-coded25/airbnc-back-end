@@ -91,13 +91,13 @@ describe('GET /api/properties/:id', () => {
     });
   });
   describe('sad paths', () => {
-    test('should respond with the status code 400 for an invalid id', async () => {
+    test('should respond with the status code 400 for an invalid property id', async () => {
       const server = request(app);
       const propertyId = 'invalid-id';
 
       await server.get(`/api/properties/${propertyId}`).expect(400);
     });
-    test('should respond with the message "bad request" for an invalid id', async () => {
+    test('should respond with the message "bad request" for an invalid property id', async () => {
       const server = request(app);
       const propertyId = 'invalid-id';
 
@@ -165,13 +165,13 @@ describe('GET /api/properties/:id/reviews', () => {
     });
   });
   describe('sad paths', () => {
-    test('should respond with the status code 400 for an invalid id', async () => {
+    test('should respond with the status code 400 for an invalid property id', async () => {
       const server = request(app);
       const propertyId = 'invalid-id';
 
       await server.get(`/api/properties/${propertyId}/reviews`).expect(400);
     });
-    test('should respond with the message "bad request" for an invalid id', async () => {
+    test('should respond with the message "bad request" for an invalid property id', async () => {
       const server = request(app);
       const propertyId = 'invalid-id';
 
@@ -468,6 +468,47 @@ describe('POST /api/properties/:id/reviews', () => {
       const { body: error } = response;
 
       expect(error.msg).toBe('Bad Request');
+    });
+  });
+});
+
+describe('DELETE /api/reviews/:id', () => {
+  describe('happy paths', () => {
+    test('should respond with the status code 204', async () => {
+      const server = request(app);
+      const reviewId = 1;
+
+      await server.delete(`/api/reviews/${reviewId}`).expect(204);
+    });
+    describe('sad paths', () => {
+      test('should respond with the status code 400 for an invalid review id', async () => {
+        const server = request(app);
+        const reviewId = 'invalid-id';
+
+        await server.delete(`/api/reviews/${reviewId}`).expect(400);
+      });
+      test('should respond with the message "bad request" for an invalid review id', async () => {
+        const server = request(app);
+        const reviewId = 'invalid-id';
+
+        const { body: error } = await server.delete(`/api/reviews/${reviewId}`);
+
+        expect(error.msg).toBe('Bad Request');
+      });
+      test('should respond with the status code 404 for a review id that does not yet exist', async () => {
+        const server = request(app);
+        const reviewId = 250;
+
+        await server.delete(`/api/reviews/${reviewId}`).expect(404);
+      });
+      test('should respond with the message "review not found" for a review id that does not yet exist', async () => {
+        const server = request(app);
+        const reviewId = 250;
+
+        const { body: error } = await server.delete(`/api/reviews/${reviewId}`);
+
+        expect(error.msg).toBe('Review Not Found');
+      });
     });
   });
 });

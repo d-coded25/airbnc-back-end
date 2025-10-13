@@ -32,4 +32,9 @@ const insertQueries = {
                   VALUES ($1, $2, $3, $4) RETURNING *;`,
 };
 
-module.exports = { selectQueries, insertQueries };
+const deleteQueries = {
+  deleteReview: `DELETE FROM reviews
+                  WHERE review_id = $1 RETURNING *;`,
+};
+
+module.exports = { selectQueries, insertQueries, deleteQueries };

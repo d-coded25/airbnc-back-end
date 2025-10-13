@@ -1,6 +1,6 @@
 const db = require('../db/connection');
 
-const { selectQueries, insertQueries } = require('./queries');
+const { selectQueries, insertQueries, deleteQueries } = require('./queries');
 
 const selectReviews = async function (propertyId) {
   const { selectReviews } = selectQueries;
@@ -16,4 +16,12 @@ const insertReview = async function (propertyId, guestId, rating, comment) {
   return review;
 };
 
-module.exports = { selectReviews, insertReview };
+const deleteReview = async function (reviewId) {
+  const { deleteReview } = deleteQueries;
+  const {
+    rows: [review],
+  } = await db.query(deleteReview, [reviewId]);
+  return review;
+};
+
+module.exports = { selectReviews, insertReview, deleteReview };

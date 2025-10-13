@@ -4,6 +4,7 @@ const { getProperties, getPropertyById } = require('./controllers/properties');
 const {
   getPropertyReviews,
   postPropertyReview,
+  deletePropertyReview,
 } = require('./controllers/reviews');
 const {
   unknownURLHandler,
@@ -19,6 +20,8 @@ app.get('/api/properties/:id', getPropertyById);
 app.get('/api/properties/:id/reviews', getPropertyReviews);
 
 app.post('/api/properties/:id/reviews', postPropertyReview);
+
+app.delete('/api/reviews/:id', deletePropertyReview);
 
 app.all('/*unknown', unknownURLHandler);
 

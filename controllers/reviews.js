@@ -1,4 +1,8 @@
-const { selectReviews, insertReview } = require('../models/reviews');
+const {
+  selectReviews,
+  insertReview,
+  deleteReview,
+} = require('../models/reviews');
 
 const getPropertyReviews = async function (req, res, newReview) {
   const { id: propertyId } = req.params;
@@ -18,7 +22,19 @@ const postPropertyReview = async function (req, res, next) {
   res.status(201).send({ review });
 };
 
+const deletePropertyReview = async function (req, res, next) {
+  const { id: reviewId } = req.params;
+  const review = await deleteReview(reviewId);
+
+  if (review) {
+    res.status(204).send();
+  } else {
+    return Promise.reject({ status: 404, msg: 'Review Not Found' });
+  }
+};
+
 module.exports = {
   getPropertyReviews,
   postPropertyReview,
+  deletePropertyReview,
 };
