@@ -15,9 +15,7 @@ const getPropertyById = async function (req, res, next) {
   if (property) {
     res.status(200).send({ property });
   } else {
-    const err = new Error('Property Not Found');
-    err.status = 404;
-    throw err;
+    return Promise.reject({ status: 404, msg: 'Property Not Found' });
   }
 };
 
