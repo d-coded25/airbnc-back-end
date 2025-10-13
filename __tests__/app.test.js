@@ -78,12 +78,14 @@ describe('GET /api/properties/:id', () => {
         'description',
         'host',
         'host_avatar',
+        'images',
       ];
 
       const response = await server.get(`/api/properties/${propertyId}`);
       const {
         body: { property },
       } = response;
+      console.log(property);
 
       expect(Object.keys(property).length).toBeGreaterThan(0);
       propertyKeys.forEach((key) => {

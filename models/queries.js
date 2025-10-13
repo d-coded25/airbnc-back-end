@@ -11,17 +11,27 @@ const selectQueries = {
                       ON properties.host_id = users.user_id INNER JOIN images 
                       ON properties.property_id = images.property_id
                       ORDER BY properties.property_id ASC, images.image_id ASC;`,
-  selectPropertyById: `SELECT property_id,
-                        name AS property_name,
-                        location,
-                        price_per_night,
-                        description,
-                        CONCAT_WS(' ', first_name, surname) AS host,
-                        avatar AS host_avatar
-                        FROM properties
+  selectPropertyById: `SELECT properties.property_id, 
+                        name AS property_name, 
+                        location, 
+                        price_per_night, 
+                        description, 
+                        CONCAT_WS(' ', first_name, surname) AS host, 
+                        avatar AS host_avatar, 
+                        ARRAY_AGG(image_url) AS images 
+                        FROM properties 
                         INNER JOIN users 
-                        ON properties.host_id = users.user_id
-                        WHERE properties.property_id = $1;`,
+                        ON properties.host_id = users.user_id INNER JOIN images 
+                        ON properties.property_id = images.property_id 
+                        WHERE properties.property_id = $1 
+                        GROUP BY properties.property_id, 
+                        name, 
+                        location, 
+                        price_per_night, 
+                        description, 
+                        first_name, 
+                        surname, 
+                        avatar;`,
   selectReviews: `SELECT review_id, 
                     comment, 
                     rating,
