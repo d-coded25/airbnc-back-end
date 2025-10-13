@@ -43,6 +43,7 @@ describe('GET /api/properties', () => {
         expect(property).toHaveProperty('location');
         expect(property).toHaveProperty('price_per_night');
         expect(property).toHaveProperty('host');
+        expect(property).toHaveProperty('image');
       });
     });
   });
