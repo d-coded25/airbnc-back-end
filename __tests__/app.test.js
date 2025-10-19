@@ -46,6 +46,36 @@ describe('GET /api/properties', () => {
         expect(property).toHaveProperty('image');
       });
     });
+    test('should return an array of objects where price per night is less than or equal to the max price query string', async () => {
+      const server = request(app);
+      const query = 'maxprice';
+      const maxPrice = 100.0;
+
+      const {
+        body: { properties },
+      } = await server.get(`/api/properties?${query}=${maxPrice}`);
+
+      properties.forEach((property) => {
+        const { price_per_night } = property;
+        expect(Number(price_per_night)).toBeLessThanOrEqual(Number(maxPrice));
+      });
+    });
+    test('should return an array of objects where price per night is more than or equal to the min price query string', async () => {
+      const server = request(app);
+      const query = 'minprice';
+      const minPrice = 100.0;
+
+      const {
+        body: { properties },
+      } = await server.get(`/api/properties?${query}=${minPrice}`);
+
+      properties.forEach((property) => {
+        const { price_per_night } = property;
+        expect(Number(price_per_night)).toBeGreaterThanOrEqual(
+          Number(minPrice)
+        );
+      });
+    });
   });
 });
 
@@ -85,7 +115,6 @@ describe('GET /api/properties/:id', () => {
       const {
         body: { property },
       } = response;
-      console.log(property);
 
       expect(Object.keys(property).length).toBeGreaterThan(0);
       propertyKeys.forEach((key) => {

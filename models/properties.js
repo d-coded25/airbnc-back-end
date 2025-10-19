@@ -1,10 +1,27 @@
 const db = require('../db/connection');
 
-const { selectQueries } = require('./queries');
+const { selectQueries, orderByQueries, queryStrings } = require('./queries');
 
-const selectProperties = async function () {
-  const { selectProperties } = selectQueries;
-  const { rows: properties } = await db.query(selectProperties);
+const selectProperties = async function (optionalQueries) {
+  let { selectProperties } = selectQueries;
+  const { filterMaxPrice, filterMinPrice } = queryStrings;
+  const { orderPropertiesByAsc } = orderByQueries;
+  const { maxprice: maxPropertyPrice, minprice: minPropertyPrice } =
+    optionalQueries;
+
+  let params = [];
+
+  if (maxPropertyPrice) {
+    selectProperties = `${selectProperties} ${filterMaxPrice}`;
+    params.push(maxPropertyPrice);
+  } else if (minPropertyPrice) {
+    selectProperties = `${selectProperties} ${filterMinPrice}`;
+    params.push(minPropertyPrice);
+  } else {
+    selectProperties = `${selectProperties} ${orderPropertiesByAsc}`;
+  }
+
+  const { rows: properties } = await db.query(selectProperties, params);
   return properties;
 };
 

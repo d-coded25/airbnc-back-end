@@ -4,7 +4,8 @@ const {
 } = require('../models/properties');
 
 const getProperties = async function (req, res, next) {
-  const properties = await selectProperties();
+  const { query: optionalQueries } = req;
+  const properties = await selectProperties(optionalQueries);
   res.status(200).send({ properties });
 };
 

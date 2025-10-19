@@ -9,8 +9,7 @@ const selectQueries = {
                       FROM properties
                       INNER JOIN users 
                       ON properties.host_id = users.user_id INNER JOIN images 
-                      ON properties.property_id = images.property_id
-                      ORDER BY properties.property_id ASC, images.image_id ASC;`,
+                      ON properties.property_id = images.property_id`,
   selectPropertyById: `SELECT properties.property_id, 
                         name AS property_name, 
                         location, 
@@ -55,4 +54,20 @@ const deleteQueries = {
                   WHERE review_id = $1 RETURNING *;`,
 };
 
-module.exports = { selectQueries, insertQueries, deleteQueries };
+const orderByQueries = {
+  orderPropertiesByAsc: `ORDER BY properties.property_id ASC, 
+                          images.image_id ASC;`,
+};
+
+const queryStrings = {
+  filterMaxPrice: 'WHERE price_per_night <= $1',
+  filterMinPrice: 'WHERE price_per_night >= $1',
+};
+
+module.exports = {
+  selectQueries,
+  insertQueries,
+  deleteQueries,
+  orderByQueries,
+  queryStrings,
+};
