@@ -16,6 +16,7 @@
       <article>
         <section>
           <h2>About</h2>
+
           <p>
             AirBNC API is RESTful API that allows interaction with the AirBNC
             database, requesting AirBNC-related resources such as properties and
@@ -25,6 +26,7 @@
 
         <section>
           <h2>All Properties</h2>
+
           <p>
             An AirBNC endpoint that allows access to property listings,
             responding with a list of property-related objects as shown in the
@@ -50,10 +52,12 @@
         </code></pre>
 
           <h3>Optional Queries:</h3>
+
           <p>
             <strong>Note:</strong> All optional queries are case-sensitive and
             accepted values are any valid numbers.
           </p>
+
           <ul>
             <li>
               <b>maxprice:</b> Filters the list of properties set by a maximum
@@ -66,9 +70,54 @@
           </ul>
 
           <h3>Status Codes:</h3>
+
           <ul>
             <li><b>200 - OK</b> Successful request.</li>
-            <li><b>404 - Not Found</b> Resource could not be found.</li>
+            <li><b>404 - Path not Found</b> Unknown URL.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Single Property</h2>
+
+          <p>
+            An AirBNC endpoint that allows access to a single property based on
+            a property id, responding with a single property-related object as
+            shown in the example directly below.
+          </p>
+
+          <p>GET <code>/api/properties/:id</code></p>
+
+          <pre><code>
+          {
+            property: { 
+              property_id: number, 
+              property_name: string,
+              location: string, 
+              price_per_night: number, 
+              description: string,
+              host: string, 
+              host_avatar: URL, 
+              image: URL } 
+          }
+        </code></pre>
+
+          <h3>Required Id:</h3>
+
+          <p>
+            <strong>Note:</strong> Id parameter must be a valid numeric id
+            corresponding to an existing property id within the database.
+          </p>
+
+          <h3>Status Codes:</h3>
+
+          <ul>
+            <li><b>200 - OK</b> Successful request.</li>
+            <li><b>400 - Bad Request</b> Invalid Id.</li>
+            <li>
+              <b>404 - Property Not Found</b> Valid id but the id does not
+              exist.
+            </li>
           </ul>
         </section>
       </article>
