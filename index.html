@@ -207,12 +207,40 @@
             </li>
           </ul>
         </section>
+
+        <section>
+          <h2>Delete A Property Review</h2>
+
+          <p>
+            An AirBNC endpoint that allows a user to delete a review about a
+            property determined by the review id.
+          </p>
+
+          <h3>Required Id:</h3>
+
+          <p>
+            <strong>Note:</strong> Id parameter must be a valid numeric id
+            corresponding to an existing review id within the database.
+          </p>
+
+          <h3>Status Codes:</h3>
+
+          <ul>
+            <li><b>204 - No Content</b> Successful request.</li>
+            <li><b>400 - Bad Request</b> Invalid Id.</li>
+            <li>
+              <b>404 - Review Not Found</b> Valid id but the id does not exist.
+            </li>
+          </ul>
+        </section>
       </article>
     </main>
 
     <footer>
       <p>&copy; AirBNC API 2025</p>
       <p>Designed by PETER S @ Northcoders</p>
+
+      <p>DELETE <code>/api/properties/:id/reviews</code></p>
     </footer>
   </body>
 </html>
