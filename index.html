@@ -120,6 +120,50 @@
             </li>
           </ul>
         </section>
+
+        <section>
+          <h2>Reviews For A Specific Property</h2>
+
+          <p>
+            An AirBNC endpoint that allows access to reviews based on a property
+            id, responding with a single review-related object as shown in the
+            example directly below.
+          </p>
+
+          <p>GET <code>/api/properties/:id/reviews</code></p>
+
+          <pre><code>
+          { 
+            reviews: [ 
+              { 
+                review_id: string, 
+                comment: string, 
+                rating: number, 
+                guest: string, 
+                guest_avatar: URL 
+              }, 
+              ... 
+            ] 
+          }
+        </code></pre>
+
+          <h3>Required Id:</h3>
+
+          <p>
+            <strong>Note:</strong> Id parameter must be a valid numeric id
+            corresponding to an existing property id within the database.
+          </p>
+
+          <h3>Status Codes:</h3>
+
+          <ul>
+            <li><b>200 - OK</b> Successful request.</li>
+            <li><b>400 - Bad Request</b> Invalid Id.</li>
+            <li>
+              <b>404 - Reviews Not Found</b> Valid id but the id does not exist.
+            </li>
+          </ul>
+        </section>
       </article>
     </main>
 
