@@ -12,6 +12,68 @@
       <h2>RESTful AirBNC API</h2>
     </header>
 
+    <main>
+      <article>
+        <section>
+          <h2>About</h2>
+          <p>
+            AirBNC API is RESTful API that allows interaction with the AirBNC
+            database, requesting AirBNC-related resources such as properties and
+            user reviews.
+          </p>
+        </section>
+
+        <section>
+          <h2>All Properties</h2>
+          <p>
+            An AirBNC endpoint that allows access to property listings,
+            responding with a list of property-related objects as shown in the
+            example directly below.
+          </p>
+
+          <p>GET <code>/api/properties</code></p>
+
+          <pre><code>
+          {
+            properties: [
+              {
+                property_id: number,
+                property_name: string,
+                location: string,
+                price_per_night: number,
+                host: string,
+                image: URL
+              },
+              ...
+            ]
+          }
+        </code></pre>
+
+          <h3>Optional Queries:</h3>
+          <p>
+            <strong>Note:</strong> All optional queries are case-sensitive and
+            accepted values are any valid numbers.
+          </p>
+          <ul>
+            <li>
+              <b>maxprice:</b> Filters the list of properties set by a maximum
+              price. Example: <b>maxprice=100</b>
+            </li>
+            <li>
+              <b>minprice:</b> Filters the list of properties set by a minimum
+              price. Example: <b>minprice=100</b>
+            </li>
+          </ul>
+
+          <h3>Status Codes:</h3>
+          <ul>
+            <li><b>200 - OK</b> Successful request.</li>
+            <li><b>404 - Not Found</b> Resource could not be found.</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
     <footer>
       <p>&copy; AirBNC API 2025</p>
       <p>Designed by PETER S @ Northcoders</p>
