@@ -164,6 +164,49 @@
             </li>
           </ul>
         </section>
+
+        <section>
+          <h2>Post A Property Review</h2>
+
+          <p>
+            An AirBNC endpoint that allows a user to post a review about a
+            property determined by the property id, responding with a single
+            review-related object as shown in the example directly below.
+          </p>
+
+          <p>POST <code>/api/properties/:id/reviews</code></p>
+
+          <pre><code>
+          { 
+            review: 
+              { 
+                review_id: number, 
+                property_id: number, 
+                guest_id: number, 
+                rating: number, 
+                comment: string, 
+                created_at: timestamp 
+              }
+          }
+        </code></pre>
+
+          <h3>Required Id:</h3>
+
+          <p>
+            <strong>Note:</strong> Id parameter must be a valid numeric id
+            corresponding to an existing property id within the database.
+          </p>
+
+          <h3>Status Codes:</h3>
+
+          <ul>
+            <li><b>200 - OK</b> Successful request.</li>
+            <li>
+              <b>400 - Bad Request</b> Invalid data or required data not
+              provided.
+            </li>
+          </ul>
+        </section>
       </article>
     </main>
 
