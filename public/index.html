@@ -39,7 +39,7 @@
             example directly below.
           </p>
 
-          <p>GET <code>/api/properties</code></p>
+          <p><span class="method">GET</span> <code>/api/properties</code></p>
 
           <pre><code>
           {
@@ -64,7 +64,7 @@
             accepted values are any valid numbers.
           </p>
 
-          <ul>
+          <ul class="queries">
             <li>
               <b>maxprice:</b> Filters the list of properties set by a maximum
               price. Example: <b>maxprice=100</b>
@@ -77,7 +77,7 @@
 
           <h3>Status Codes:</h3>
 
-          <ul>
+          <ul class="status-codes">
             <li><b>200 - OK</b> Successful request.</li>
             <li><b>404 - Path not Found</b> Unknown URL.</li>
           </ul>
@@ -92,7 +92,9 @@
             shown in the example directly below.
           </p>
 
-          <p>GET <code>/api/properties/:id</code></p>
+          <p>
+            <span class="method">GET</span> <code>/api/properties/:id</code>
+          </p>
 
           <pre><code>
           {
@@ -117,7 +119,7 @@
 
           <h3>Status Codes:</h3>
 
-          <ul>
+          <ul class="status-codes">
             <li><b>200 - OK</b> Successful request.</li>
             <li><b>400 - Bad Request</b> Invalid Id.</li>
             <li>
@@ -136,7 +138,10 @@
             example directly below.
           </p>
 
-          <p>GET <code>/api/properties/:id/reviews</code></p>
+          <p>
+            <span class="method">GET</span>
+            <code>/api/properties/:id/reviews</code>
+          </p>
 
           <pre><code>
           { 
@@ -162,7 +167,7 @@
 
           <h3>Status Codes:</h3>
 
-          <ul>
+          <ul class="status-codes">
             <li><b>200 - OK</b> Successful request.</li>
             <li><b>400 - Bad Request</b> Invalid Id.</li>
             <li>
@@ -180,7 +185,10 @@
             review-related object as shown in the example directly below.
           </p>
 
-          <p>POST <code>/api/properties/:id/reviews</code></p>
+          <p>
+            <span class="method">POST</span>
+            <code>/api/properties/:id/reviews</code>
+          </p>
 
           <pre><code>
           { 
@@ -205,7 +213,7 @@
 
           <h3>Status Codes:</h3>
 
-          <ul>
+          <ul class="status-codes">
             <li><b>200 - OK</b> Successful request.</li>
             <li>
               <b>400 - Bad Request</b> Invalid data or required data not
@@ -222,6 +230,11 @@
             property determined by the review id.
           </p>
 
+          <p>
+            <span class="method">DELETE</span>
+            <code>/api/reviews/:id</code>
+          </p>
+
           <h3>Required Id:</h3>
 
           <p>
@@ -231,7 +244,7 @@
 
           <h3>Status Codes:</h3>
 
-          <ul>
+          <ul class="status-codes">
             <li><b>204 - No Content</b> Successful request.</li>
             <li><b>400 - Bad Request</b> Invalid Id.</li>
             <li>
@@ -245,8 +258,6 @@
     <footer>
       <p>&copy; AirBNC API 2025</p>
       <p>Designed by PETER S @ Northcoders</p>
-
-      <p>DELETE <code>/api/properties/:id/reviews</code></p>
     </footer>
   </body>
 </html>
