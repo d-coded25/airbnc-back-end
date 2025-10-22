@@ -10,3 +10,9 @@ h1 {
   letter-spacing: 10px;
   text-align: center;
 }
+
+h2 {
+  font-size: 32px;
+  font-weight: 200;
+  letter-spacing: 4px;
+}
