@@ -36,3 +36,17 @@ p {
   border-radius: 4px;
   padding: 4px 12px;
 }
+
+.status-success {
+  color: #f8f8ff;
+  background-color: #4caf50;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.status-error {
+  color: #f8f8ff;
+  background-color: #e53935;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
