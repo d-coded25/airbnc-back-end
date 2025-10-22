@@ -14,8 +14,7 @@
   </head>
   <body>
     <header>
-      <h1>AirBNC API</h1>
-      <h2>RESTful AirBNC API</h2>
+      <h1>AirBNC - RESTfulAPI</h1>
     </header>
 
     <main>
@@ -24,7 +23,7 @@
           <h2>About</h2>
 
           <p>
-            AirBNC API is RESTful API that allows interaction with the AirBNC
+            AirBNC API is a RESTful API that allows interaction with the AirBNC
             database, requesting AirBNC-related resources such as properties and
             user reviews.
           </p>
@@ -34,12 +33,12 @@
           <h2>All Properties</h2>
 
           <p>
-            An AirBNC endpoint that allows access to property listings,
-            responding with a list of property-related objects as shown in the
-            example directly below.
+            An endpoint that allows access to property listings, responding with
+            a list of property-related objects as shown in the example directly
+            below.
           </p>
 
-          <p><span class="method">GET</span> <code>/api/properties</code></p>
+          <p><span>GET</span> <code>/api/properties</code></p>
 
           <pre><code>
           {
@@ -61,25 +60,37 @@
 
           <p>
             <strong>Note:</strong> All optional queries are case-sensitive and
-            accepted values are any valid numbers.
+            accepted values are any valid positive integers.
           </p>
 
-          <ul class="queries">
+          <ul>
             <li>
-              <b>maxprice:</b> Filters the list of properties set by a maximum
-              price. Example: <b>maxprice=100</b>
+              <p>
+                <b>maxprice:</b> Filters the list of properties set by a maximum
+                price. Example: <b>maxprice=100</b>
+              </p>
             </li>
             <li>
-              <b>minprice:</b> Filters the list of properties set by a minimum
-              price. Example: <b>minprice=100</b>
+              <p>
+                <b>minprice:</b> Filters the list of properties set by a minimum
+                price. Example: <b>minprice=100</b>
+              </p>
             </li>
           </ul>
 
           <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li><b>200 - OK</b> Successful request.</li>
-            <li><b>404 - Path not Found</b> Unknown URL.</li>
+          <ul>
+            <li>
+              <p>
+                <b><span>200</span> - OK</b> Successful request.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>404</span> - Path not Found</b> Unknown URL.
+              </p>
+            </li>
           </ul>
         </section>
 
@@ -87,14 +98,12 @@
           <h2>Single Property</h2>
 
           <p>
-            An AirBNC endpoint that allows access to a single property based on
-            a property id, responding with a single property-related object as
+            An endpoint that allows access to a single property based on a
+            property id, responding with a single property-related object as
             shown in the example directly below.
           </p>
 
-          <p>
-            <span class="method">GET</span> <code>/api/properties/:id</code>
-          </p>
+          <p><span>GET</span> <code>/api/properties/:id</code></p>
 
           <pre><code>
           {
@@ -113,18 +122,29 @@
           <h3>Required Id:</h3>
 
           <p>
-            <strong>Note:</strong> Id parameter must be a valid numeric id
-            corresponding to an existing property id within the database.
+            <strong>Note:</strong> Id parameter must be a valid positive
+            integer, corresponding to an existing property id within the
+            database.
           </p>
 
           <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li><b>200 - OK</b> Successful request.</li>
-            <li><b>400 - Bad Request</b> Invalid Id.</li>
+          <ul>
             <li>
-              <b>404 - Property Not Found</b> Valid id but the id does not
-              exist.
+              <p>
+                <b><span>200</span> - OK</b> Successful request.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>400</span> - Bad Request</b> Invalid Id.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>404</span> - Property Not Found</b> Valid id, but the
+                id does not exist.
+              </p>
             </li>
           </ul>
         </section>
@@ -133,13 +153,13 @@
           <h2>Reviews For A Specific Property</h2>
 
           <p>
-            An AirBNC endpoint that allows access to reviews based on a property
-            id, responding with a single review-related object as shown in the
+            An endpoint that allows access to reviews based on a property id,
+            responding with a single review-related object as shown in the
             example directly below.
           </p>
 
           <p>
-            <span class="method">GET</span>
+            <span>GET</span>
             <code>/api/properties/:id/reviews</code>
           </p>
 
@@ -161,17 +181,29 @@
           <h3>Required Id:</h3>
 
           <p>
-            <strong>Note:</strong> Id parameter must be a valid numeric id
-            corresponding to an existing property id within the database.
+            <strong>Note:</strong> Id parameter must be a valid positive
+            integer, corresponding to an existing property id within the
+            database.
           </p>
 
           <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li><b>200 - OK</b> Successful request.</li>
-            <li><b>400 - Bad Request</b> Invalid Id.</li>
+          <ul>
             <li>
-              <b>404 - Reviews Not Found</b> Valid id but the id does not exist.
+              <p>
+                <b><span>200</span> - OK</b> Successful request.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>400</span> - Bad Request</b> Invalid Id.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>404</span> - Reviews Not Found</b> Valid id, but the id
+                does not exist.
+              </p>
             </li>
           </ul>
         </section>
@@ -180,13 +212,13 @@
           <h2>Post A Property Review</h2>
 
           <p>
-            An AirBNC endpoint that allows a user to post a review about a
+            An endpoint that allows a user to post a review about a specific
             property determined by the property id, responding with a single
             review-related object as shown in the example directly below.
           </p>
 
           <p>
-            <span class="method">POST</span>
+            <span>POST</span>
             <code>/api/properties/:id/reviews</code>
           </p>
 
@@ -207,17 +239,42 @@
           <h3>Required Id:</h3>
 
           <p>
-            <strong>Note:</strong> Id parameter must be a valid numeric id
+            <strong>Note:</strong> Id parameter must be a valid positive integer
             corresponding to an existing property id within the database.
           </p>
 
+          <h3>Required Body:</h3>
+
+          <p>
+            <strong>Note:</strong> A request body needs to be in the form of a
+            JSON object with the required fields, as shown in the example
+            directly below.
+          </p>
+
+          <pre><code>
+          { 
+            review: 
+              { 
+                "guest_id": number, 
+                "rating": number,
+                "comment": string,
+              }
+          }
+        </code></pre>
+
           <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li><b>200 - OK</b> Successful request.</li>
+          <ul>
             <li>
-              <b>400 - Bad Request</b> Invalid data or required data not
-              provided.
+              <p>
+                <b><span>200</span> - OK</b> Successful request.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>400</span> - Bad Request</b> Invalid data, or required
+                data not provided.
+              </p>
             </li>
           </ul>
         </section>
@@ -226,29 +283,40 @@
           <h2>Delete A Property Review</h2>
 
           <p>
-            An AirBNC endpoint that allows a user to delete a review about a
-            property determined by the review id.
+            An endpoint that allows a user to delete a review about a specific
+            property, determined by a review id.
           </p>
 
           <p>
-            <span class="method">DELETE</span>
+            <span>DELETE</span>
             <code>/api/reviews/:id</code>
           </p>
 
           <h3>Required Id:</h3>
 
           <p>
-            <strong>Note:</strong> Id parameter must be a valid numeric id
-            corresponding to an existing review id within the database.
+            <strong>Note:</strong> Id parameter must be a valid positive
+            integer, corresponding to an existing review id within the database.
           </p>
 
           <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li><b>204 - No Content</b> Successful request.</li>
-            <li><b>400 - Bad Request</b> Invalid Id.</li>
+          <ul>
             <li>
-              <b>404 - Review Not Found</b> Valid id but the id does not exist.
+              <p>
+                <b><span>204</span> - No Content</b> Successful request.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>400</span> - Bad Request</b> Invalid Id.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b><span>404</span> - Review Not Found</b> Valid id, but the id
+                does not exist.
+              </p>
             </li>
           </ul>
         </section>
