@@ -30,6 +30,26 @@ p {
   letter-spacing: 1px;
 }
 
+.about {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #444;
+}
+
+.get-properties,
+.get-property,
+.get-reviews,
+.post-review,
+.delete-review {
+  padding: 40px 0;
+  border-bottom: 1px solid #444;
+}
+
+.site-information {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .method {
   color: #f8f8ff;
   background-color: #6c63ff;
