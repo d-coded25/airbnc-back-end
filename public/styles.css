@@ -37,6 +37,10 @@ p {
   padding: 4px 12px;
 }
 
+.status-codes {
+  list-style: none;
+}
+
 .status-success {
   color: #f8f8ff;
   background-color: #4caf50;
