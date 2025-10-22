@@ -29,3 +29,10 @@ p {
   line-height: 2;
   letter-spacing: 1px;
 }
+
+.method {
+  color: #f8f8ff;
+  background-color: #6c63ff;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
