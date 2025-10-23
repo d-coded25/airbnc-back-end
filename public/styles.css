@@ -50,11 +50,15 @@ p {
   padding-bottom: 20px;
 }
 
+.method,
+.status-success,
+.status-error {
+  border-radius: 4px;
+  padding: 4px 12px;
+}
 .method {
   color: #f8f8ff;
   background-color: #6c63ff;
-  border-radius: 4px;
-  padding: 4px 12px;
 }
 
 .status-codes {
@@ -64,13 +68,9 @@ p {
 .status-success {
   color: #f8f8ff;
   background-color: #4caf50;
-  border-radius: 4px;
-  padding: 4px 12px;
 }
 
 .status-error {
   color: #f8f8ff;
   background-color: #e53935;
-  border-radius: 4px;
-  padding: 4px 12px;
 }
