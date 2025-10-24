@@ -4,6 +4,13 @@ body {
   background-color: #f8f8ff;
 }
 
+#main-container {
+  width: 80%;
+  min-width: 720px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 h1 {
   font-size: 50px;
   font-weight: 300;
@@ -56,6 +63,7 @@ p {
   border-radius: 4px;
   padding: 4px 12px;
 }
+
 .method {
   color: #f8f8ff;
   background-color: #6c63ff;

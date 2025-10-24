@@ -13,34 +13,35 @@
     <title>AirBNC API</title>
   </head>
   <body>
-    <header>
-      <h1>AirBNC - RESTful API</h1>
-    </header>
+    <div id="main-container">
+      <header>
+        <h1>AirBNC - RESTful API</h1>
+      </header>
 
-    <main>
-      <article>
-        <section class="about">
-          <h2>About</h2>
+      <main>
+        <article>
+          <section class="about">
+            <h2>About</h2>
 
-          <p>
-            AirBNC API is a RESTful API that allows interaction with the AirBNC
-            database, requesting AirBNC-related resources such as properties and
-            user reviews.
-          </p>
-        </section>
+            <p>
+              AirBNC API is a RESTful API that allows interaction with the
+              AirBNC database, requesting AirBNC-related resources such as
+              properties and user reviews.
+            </p>
+          </section>
 
-        <section class="get-properties">
-          <h2>All Properties</h2>
+          <section class="get-properties">
+            <h2>All Properties</h2>
 
-          <p>
-            An endpoint that allows access to property listings, responding with
-            a list of property-related objects as shown in the example directly
-            below.
-          </p>
+            <p>
+              An endpoint that allows access to property listings, responding
+              with a list of property-related objects as shown in the example
+              directly below.
+            </p>
 
-          <p><span class="method">GET</span> <code>/api/properties</code></p>
+            <p><span class="method">GET</span> <code>/api/properties</code></p>
 
-          <pre><code>
+            <pre><code>
           {
             properties: [
               {
@@ -56,60 +57,60 @@
           }
         </code></pre>
 
-          <h3>Optional Queries:</h3>
+            <h3>Optional Queries:</h3>
 
-          <p>
-            <strong>Note:</strong> All optional queries are case-sensitive and
-            accepted values are any valid positive integers.
-          </p>
+            <p>
+              <strong>Note:</strong> All optional queries are case-sensitive and
+              accepted values are any valid positive integers.
+            </p>
 
-          <ul>
-            <li>
-              <p>
-                <b>maxprice:</b> Filters the list of properties set by a maximum
-                price. Example: <b>maxprice=100</b>
-              </p>
-            </li>
-            <li>
-              <p>
-                <b>minprice:</b> Filters the list of properties set by a minimum
-                price. Example: <b>minprice=100</b>
-              </p>
-            </li>
-          </ul>
+            <ul>
+              <li>
+                <p>
+                  <b>maxprice:</b> Filters the list of properties set by a
+                  maximum price. Example: <b>maxprice=100</b>
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>minprice:</b> Filters the list of properties set by a
+                  minimum price. Example: <b>minprice=100</b>
+                </p>
+              </li>
+            </ul>
 
-          <h3>Status Codes:</h3>
+            <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li>
-              <p>
-                <b><span class="status-success">200</span> - OK.</b> Successful
-                request.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">404</span> - Path Not Found.</b>
-                Unknown URL.
-              </p>
-            </li>
-          </ul>
-        </section>
+            <ul class="status-codes">
+              <li>
+                <p>
+                  <b><span class="status-success">200</span> - OK.</b>
+                  Successful request.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b><span class="status-error">404</span> - Path Not Found.</b>
+                  Unknown URL.
+                </p>
+              </li>
+            </ul>
+          </section>
 
-        <section class="get-property">
-          <h2>Single Property</h2>
+          <section class="get-property">
+            <h2>Single Property</h2>
 
-          <p>
-            An endpoint that allows access to a single property based on a
-            property id, responding with a single property-related object as
-            shown in the example directly below.
-          </p>
+            <p>
+              An endpoint that allows access to a single property based on a
+              property id, responding with a single property-related object as
+              shown in the example directly below.
+            </p>
 
-          <p>
-            <span class="method">GET</span> <code>/api/properties/:id</code>
-          </p>
+            <p>
+              <span class="method">GET</span> <code>/api/properties/:id</code>
+            </p>
 
-          <pre><code>
+            <pre><code>
           {
             property: { 
               property_id: number, 
@@ -123,56 +124,56 @@
           }
         </code></pre>
 
-          <h3>Required Id:</h3>
+            <h3>Required Id:</h3>
 
-          <p>
-            <strong>Note:</strong> Id parameter must be a valid positive
-            integer, corresponding to an existing property id within the
-            database.
-          </p>
+            <p>
+              <strong>Note:</strong> Id parameter must be a valid positive
+              integer, corresponding to an existing property id within the
+              database.
+            </p>
 
-          <h3>Status Codes:</h3>
+            <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li>
-              <p>
-                <b><span class="status-success">200</span> - OK.</b> Successful
-                request.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">400</span> - Bad Request.</b>
-                Invalid Id.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b
-                  ><span class="status-error">404</span> - Property Not
-                  Found.</b
-                >
-                Valid id, but the id does not exist.
-              </p>
-            </li>
-          </ul>
-        </section>
+            <ul class="status-codes">
+              <li>
+                <p>
+                  <b><span class="status-success">200</span> - OK.</b>
+                  Successful request.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b><span class="status-error">400</span> - Bad Request.</b>
+                  Invalid Id.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b
+                    ><span class="status-error">404</span> - Property Not
+                    Found.</b
+                  >
+                  Valid id, but the id does not exist.
+                </p>
+              </li>
+            </ul>
+          </section>
 
-        <section class="get-reviews">
-          <h2>Reviews For A Specific Property</h2>
+          <section class="get-reviews">
+            <h2>Reviews For A Specific Property</h2>
 
-          <p>
-            An endpoint that allows access to reviews based on a property id,
-            responding with a single review-related object as shown in the
-            example directly below.
-          </p>
+            <p>
+              An endpoint that allows access to reviews based on a property id,
+              responding with a single review-related object as shown in the
+              example directly below.
+            </p>
 
-          <p>
-            <span class="method">GET</span>
-            <code>/api/properties/:id/reviews</code>
-          </p>
+            <p>
+              <span class="method">GET</span>
+              <code>/api/properties/:id/reviews</code>
+            </p>
 
-          <pre><code>
+            <pre><code>
           { 
             reviews: [ 
               { 
@@ -187,55 +188,56 @@
           }
         </code></pre>
 
-          <h3>Required Id:</h3>
+            <h3>Required Id:</h3>
 
-          <p>
-            <strong>Note:</strong> Id parameter must be a valid positive
-            integer, corresponding to an existing property id within the
-            database.
-          </p>
+            <p>
+              <strong>Note:</strong> Id parameter must be a valid positive
+              integer, corresponding to an existing property id within the
+              database.
+            </p>
 
-          <h3>Status Codes:</h3>
+            <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li>
-              <p>
-                <b><span class="status-success">200</span> - OK.</b> Successful
-                request.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">400</span> - Bad Request.</b>
-                Invalid Id.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b
-                  ><span class="status-error">404</span> - Reviews Not Found.</b
-                >
-                Valid id, but the id does not exist.
-              </p>
-            </li>
-          </ul>
-        </section>
+            <ul class="status-codes">
+              <li>
+                <p>
+                  <b><span class="status-success">200</span> - OK.</b>
+                  Successful request.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b><span class="status-error">400</span> - Bad Request.</b>
+                  Invalid Id.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b
+                    ><span class="status-error">404</span> - Reviews Not
+                    Found.</b
+                  >
+                  Valid id, but the id does not exist.
+                </p>
+              </li>
+            </ul>
+          </section>
 
-        <section class="post-review">
-          <h2>Post A Property Review</h2>
+          <section class="post-review">
+            <h2>Post A Property Review</h2>
 
-          <p>
-            An endpoint that allows a user to post a review about a specific
-            property determined by the property id, responding with a single
-            review-related object as shown in the example directly below.
-          </p>
+            <p>
+              An endpoint that allows a user to post a review about a specific
+              property determined by the property id, responding with a single
+              review-related object as shown in the example directly below.
+            </p>
 
-          <p>
-            <span class="method">POST</span>
-            <code>/api/properties/:id/reviews</code>
-          </p>
+            <p>
+              <span class="method">POST</span>
+              <code>/api/properties/:id/reviews</code>
+            </p>
 
-          <pre><code>
+            <pre><code>
           { 
             review: 
               { 
@@ -249,22 +251,23 @@
           }
         </code></pre>
 
-          <h3>Required Id:</h3>
+            <h3>Required Id:</h3>
 
-          <p>
-            <strong>Note:</strong> Id parameter must be a valid positive integer
-            corresponding to an existing property id within the database.
-          </p>
+            <p>
+              <strong>Note:</strong> Id parameter must be a valid positive
+              integer corresponding to an existing property id within the
+              database.
+            </p>
 
-          <h3>Required Body:</h3>
+            <h3>Required Body:</h3>
 
-          <p>
-            <strong>Note:</strong> A request body needs to be in the form of a
-            JSON object with the required fields, as shown in the example
-            directly below.
-          </p>
+            <p>
+              <strong>Note:</strong> A request body needs to be in the form of a
+              JSON object with the required fields, as shown in the example
+              directly below.
+            </p>
 
-          <pre><code>
+            <pre><code>
               { 
                 "guest_id": number, 
                 "rating": number,
@@ -272,73 +275,78 @@
               }
         </code></pre>
 
-          <h3>Status Codes:</h3>
+            <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li>
-              <p>
-                <b><span class="status-success">200</span> - OK.</b> Successful
-                request.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">400</span> - Bad Request.</b>
-                Invalid data, or required data not provided.
-              </p>
-            </li>
-          </ul>
-        </section>
+            <ul class="status-codes">
+              <li>
+                <p>
+                  <b><span class="status-success">200</span> - OK.</b>
+                  Successful request.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b><span class="status-error">400</span> - Bad Request.</b>
+                  Invalid data, or required data not provided.
+                </p>
+              </li>
+            </ul>
+          </section>
 
-        <section class="delete-review">
-          <h2>Delete A Property Review</h2>
+          <section class="delete-review">
+            <h2>Delete A Property Review</h2>
 
-          <p>
-            An endpoint that allows a user to delete a review about a specific
-            property, determined by a review id.
-          </p>
+            <p>
+              An endpoint that allows a user to delete a review about a specific
+              property, determined by a review id.
+            </p>
 
-          <p>
-            <span class="method">DELETE</span>
-            <code>/api/reviews/:id</code>
-          </p>
+            <p>
+              <span class="method">DELETE</span>
+              <code>/api/reviews/:id</code>
+            </p>
 
-          <h3>Required Id:</h3>
+            <h3>Required Id:</h3>
 
-          <p>
-            <strong>Note:</strong> Id parameter must be a valid positive
-            integer, corresponding to an existing review id within the database.
-          </p>
+            <p>
+              <strong>Note:</strong> Id parameter must be a valid positive
+              integer, corresponding to an existing review id within the
+              database.
+            </p>
 
-          <h3>Status Codes:</h3>
+            <h3>Status Codes:</h3>
 
-          <ul class="status-codes">
-            <li>
-              <p>
-                <b><span class="status-success">204</span> - No Content.</b>
-                Successful request.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">400</span> - Bad Request.</b>
-                Invalid Id.
-              </p>
-            </li>
-            <li>
-              <p>
-                <b><span class="status-error">404</span> - Review Not Found.</b>
-                Valid id, but the id does not exist.
-              </p>
-            </li>
-          </ul>
-        </section>
-      </article>
-    </main>
+            <ul class="status-codes">
+              <li>
+                <p>
+                  <b><span class="status-success">204</span> - No Content.</b>
+                  Successful request.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b><span class="status-error">400</span> - Bad Request.</b>
+                  Invalid Id.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b
+                    ><span class="status-error">404</span> - Review Not
+                    Found.</b
+                  >
+                  Valid id, but the id does not exist.
+                </p>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </main>
 
-    <footer class="site-information">
-      <p>&copy; AirBNC API 2025</p>
-      <p>Designed by PETER S @ Northcoders</p>
-    </footer>
+      <footer class="site-information">
+        <p>&copy; AirBNC API 2025</p>
+        <p>Designed by PETER S @ Northcoders</p>
+      </footer>
+    </div>
   </body>
 </html>
