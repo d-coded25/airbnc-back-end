@@ -2,7 +2,7 @@
   "name": "airbnc",
   "version": "1.0.0",
   "description": "## Project Overview:",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
     "dbs-setup": "psql -f ./db/db-setup.sql",
     "seed-test": "NODE_ENV=test node ./db/seed-run.js",
@@ -10,7 +10,8 @@
     "seed-prod": "NODE_ENV=production node ./db/seed-run",
     "test-utils": "jest utils --watchAll",
     "test-app": "jest app --watchAll",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
