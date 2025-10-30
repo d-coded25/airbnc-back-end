@@ -13,6 +13,7 @@ const {
   serverErrorHandler,
 } = require('./errors/errors');
 
+app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/api/properties', getProperties);
