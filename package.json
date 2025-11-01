@@ -10,7 +10,8 @@
     "seed-prod": "NODE_ENV=production node ./db/seed-run",
     "test-utils": "jest utils --watchAll",
     "test-app": "jest app --watchAll",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
