@@ -1,4 +1,4 @@
-# AirBNC
+# Airbnc
 
 ## Project Overview:
 
