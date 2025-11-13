@@ -1,8 +1,8 @@
 const createTestDatabase = require('./seed');
-const testData = require('./data/test/index');
+const data = require('./data/');
 const db = require('./connection');
 
-createTestDatabase(testData)
+createTestDatabase(data)
   .then(() => db.end())
   .then(() => {
     console.log('Database connection closed...');
