@@ -1,49 +1,84 @@
-# Airbnc
+# Airbnc - Back-End
 
 ## Project Overview:
 
-A project that replicates a simplified version of the Airbnb platform.
+Airbnc back-end is a simplified back-end implementation of the Airbnb platform. The back-end application exposes RESTful API endpoints, accepts HTTP requests, interacts with a relational database, and returns JSON responses.
 
-### Project Setup:
+## Technology Stack
 
-1. Make sure to setup a local database by running the following NPM script:
+- JavaScript (Node JS)
+- Express JS (Server)
+- PostgreSQL (Relational database)
+- Node-postgres (PostgreSQL client)
+- Jest (testing framework)
+
+## Project Setup
+
+### 1. Database Setup
+
+Create and initialise a local PostgreSQL database by running the following NPM script:
 
 ```sh
  npm run db-setup
 ```
 
-2. Make sure to install all NPM dependencies by running the following NPM script:
+### 2. Install Dependencies
+
+Install all required Node.js dependencies by running the following NPM script:
 
 ```sh
 npm install
 ```
 
-3. Make sure a .env file is located at the project root level and contains the correct database credentials:
+### 3. Environment Variables
+
+Ensure a .env file is located at the project root level and contains the correct database credentials:
 
 ```
 PGDATABASE=airbnc_test
 ```
 
-4. Make sure to seed the database with initial data by running the following NPM script:
+### 4. Database Seeding
+
+Populate the database with initial data by running the following NPM script:
 
 ```sh
 npm run seed
 ```
 
-5.  To run the express server in development mode, please run the following NPM script:
+### 5. Run The Development Server
+
+Start the Express server in development mode by run the following NPM script
 
 ```sh
 npm run dev
 ```
 
-6. To run jest utility tests, please run the following NPM script:
+Development server will run on:
+
+```sh
+http://localhost:9090
+```
+
+### 6. Utility Testing
+
+Run unit tests for utility functions by running the following NPM script:
 
 ```sh
 npm run test-utils
 ```
 
-7. To run jest app tests, please run the following NPM script:
+### 7. Integration Testing
+
+Run integration tests by running the following NPM script:
 
 ```sh
 npm run test-app
 ```
+
+## Future Improvements
+
+As a property guest user:
+
+- Delete reviews
+- Sort and filter properties
