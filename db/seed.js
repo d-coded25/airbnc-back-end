@@ -2,7 +2,6 @@ const db = require('./connection');
 
 const format = require('pg-format');
 
-// Utility Functions:
 const {
   propertyTypesFormatter,
   usersFormatter,
@@ -14,7 +13,6 @@ const {
   imagesFormatter,
 } = require('./utils');
 
-// Queries:
 const {
   dropTablesQueries,
   createTablesQueries,
@@ -88,7 +86,7 @@ const insertData = async function (data) {
     const usersAndIds = usersLookup(usersResponse);
     const properties = propertiesFormatter(propertiesData, usersAndIds);
     const { rows: propertiesResponse } = await db.query(
-      format(insertProperties, properties)
+      format(insertProperties, properties),
     );
 
     const guestsAndIds = guestsLookup(usersResponse);
@@ -96,7 +94,7 @@ const insertData = async function (data) {
     const reviews = reviewsFormatter(
       reviewsData,
       propertiesAndIds,
-      guestsAndIds
+      guestsAndIds,
     );
     await db.query(format(insertReviews, reviews));
 
